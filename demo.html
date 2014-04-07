@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <title>core-drawer-panel</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="../platform/platform.js"></script>
+
+    <link rel="import" href="core-drawer-panel.html">
+    <link rel="import" href="../core-toolbar/core-toolbar.html">
+    <link rel="import" href="../core-icon-button/core-icon-button.html">
+    <link rel="import" href="../core-item/core-item.html">
+    <link rel="import" href="../core-menu/core-menu.html">
+
+    <style>
+
+      body {
+        font-family: sans-serif;
+        margin: 0;
+      }
+
+      core-drawer-panel {
+        background-color: #eee;
+      }
+
+      [drawer] {
+        background-color: #fff;
+        border-right: 1px solid #ccc;
+      }
+      
+      [main] {
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px, rgba(0, 0, 0, 0.14902) 0px 0px 3px;
+      }
+
+      .drawer-toolbar {
+        background: url(http://lorempixel.com/256/188/nature/);
+        margin-bottom: 10px;
+      }
+
+      core-item {
+        font-size: 14px;
+      }
+
+      core-toolbar {
+        background-color: #4285F4;
+        color: #D7E5FC;
+      }
+      
+      button.straddle {
+        position: absolute;
+        top: 34px;
+        right: 20px;
+        background-color: #B3E5FC;
+      }
+
+      #content {
+        height: 300px;
+      }
+
+      #content.more {
+        height: 3000px;
+      }
+
+      @media all and (min-width: 641px) {
+        #toolbarMenuButton {
+          display: none;
+        }
+        #toolbarLabel {
+          padding-left: 10px;
+        }
+      }
+
+      [column] {
+        max-width: 720px;
+        margin: 20px auto;
+      }
+      
+    </style>
+
+  </head>
+
+  <body unresolved>
+
+    <core-drawer-panel>
+
+      <div drawer>
+
+        <core-toolbar class="drawer-toolbar tall seamed"></core-toolbar>
+
+        <core-menu theme="core-light-theme">
+          <core-item icon="settings" label="Settings"></core-item>
+          <core-item icon="favorite" label="Favorite"></core-item>
+          <core-item icon="gplus" label="Google+"></core-item>
+          <core-item icon="tag" label="Shopping"></core-item>
+          <core-item icon="account" label="Account"></core-item>
+          <core-item icon="briefcase" label="Briefcase"></core-item>
+        </core-menu>
+
+      </div>
+
+      <div main>
+
+        <core-toolbar class="tall">
+          <core-icon-button id="toolbarMenuButton" icon="menu" onclick="togglePanel()"></core-icon-button>
+          <div id="toolbarLabel" core-flex>Application</div>
+          <core-icon-button icon="search"></core-icon-button>
+        </core-toolbar>
+
+        <div id="content"></div>
+
+      </div>
+
+    </core-drawer-panel>
+    
+    <script>
+
+      function toggleAttribute(elt, attr) {
+        if (elt.hasAttribute(attr)) {
+          elt.removeAttribute(attr);
+        } else {
+          elt.setAttribute(attr, '')
+        }
+      }
+
+      function toggleColumn() {
+        toggleAttribute(document.querySelector('div[main]'), 'column');
+      }
+
+      function togglePanel() {
+        document.querySelector('core-drawer-panel').togglePanel();
+      }
+
+      function toggleMoreContent() {
+        document.querySelector('#content').classList.toggle('more');
+      }
+
+    </script>
+  
+  </body>
+</html>
