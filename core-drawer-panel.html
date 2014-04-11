@@ -34,91 +34,88 @@ Example:
 <link rel="import" href="../core-selector/core-selector.html">
 
 <polymer-element name="core-drawer-panel" attributes="selected defaultSelected responsiveWidth narrow">
+<template>
 
-  <template>
+  <link rel="stylesheet" href="core-drawer-panel.css">
 
-    <link rel="stylesheet" href="core-drawer-panel.css">
+  <core-media-query query="max-width: {{responsiveWidth}}" queryMatches="{{queryMatches}}"></core-media-query>
 
-    <core-media-query query="max-width: {{responsiveWidth}}" queryMatches="{{queryMatches}}"></core-media-query>
+  <core-selector class="{{queryMatches ? 'narrow-layout' : ''}}" valueattr="id" selected="{{selected}}">
 
-    <core-selector class="{{queryMatches ? 'narrow-layout' : ''}}" valueattr="id" selected="{{selected}}">
+    <div id="main" >
+      <content select="[main]"></content>
+      <div id="scrim" on-tap="{{togglePanel}}"></div>
+    </div>
+    
+    <div id="drawer">
+      <content select="[drawer]"></content>
+    </div>
 
-      <div id="main" >
-        <content select="[main]"></content>
-        <div id="scrim" on-tap="{{togglePanel}}"></div>
-      </div>
-      
-      <div id="drawer">
-        <content select="[drawer]"></content>
-      </div>
+  </core-selector>
 
-    </core-selector>
+</template>
+<script>
 
-  </template>
+  Polymer('core-drawer-panel', {
+    /**
+     * Fired when the narrow layout changes.
+     * 
+     * @event core-responsive-change
+     * @param {Object} detail
+     * @param {boolean} detail.narrow true if the panel is in narrow layout.
+     */
 
-  <script>
+    /**
+     * Max-width when the panel changes to narrow layout.
+     *
+     * @attribute responsiveWidth
+     * @type string
+     * @default '640px'
+     */
+    responsiveWidth: '640px',
+    
+    /**
+     * The panel that is being selected. `drawer` for the drawer panel and
+     * `main` for the main panel.
+     *
+     * @attribute selected
+     * @type string
+     * @default ''
+     */
+    
+    /**
+     * The panel to be selected when `core-drawer-panel` changes to narrow 
+     * layout.
+     *
+     * @attribute defaultSelected
+     * @type string
+     * @default 'main'
+     */
+    defaultSelected: 'main',
+    
+    /**
+     * Returns true if the panel is in narrow layout.  This is useful if you
+     * need to show/hide elements based on the layout.
+     *
+     * @attribute narrow
+     * @type boolean
+     * @default false
+     */
+    narrow: false,
 
-    Polymer('core-drawer-panel', {
-      /**
-       * Fired when the narrow layout changes.
-       * 
-       * @event core-responsive-change
-       * @param {Object} detail
-       * @param {boolean} detail.narrow true if the panel is in narrow layout.
-       */
+    togglePanel: function() {
+      this.selected = this.selected === 'main' ? 'drawer' : 'main';
+    },
 
-      /**
-       * Max-width when the panel changes to narrow layout.
-       *
-       * @attribute responsiveWidth
-       * @type string
-       * @default '640px'
-       */
-      responsiveWidth: '640px',
-      
-      /**
-       * The panel that is being selected. `drawer` for the drawer panel and
-       * `main` for the main panel.
-       *
-       * @attribute selected
-       * @type string
-       * @default ''
-       */
-      
-      /**
-       * The panel to be selected when `core-drawer-panel` changes to narrow 
-       * layout.
-       *
-       * @attribute defaultSelected
-       * @type string
-       * @default 'main'
-       */
-      defaultSelected: 'main',
-      
-      /**
-       * Returns true if the panel is in narrow layout.  This is useful if you
-       * need to show/hide elements based on the layout.
-       *
-       * @attribute narrow
-       * @type boolean
-       * @default false
-       */
-      narrow: false,
-
-      togglePanel: function() {
-        this.selected = this.selected === 'main' ? 'drawer' : 'main';
-      },
-
-      queryMatchesChanged: function() {
-        if (this.queryMatches) {
-          this.selected = this.defaultSelected;
-        }
-        this.narrow = this.queryMatches;
-        this.fire('core-responsive-change', {narrow: this.narrow});
+    queryMatchesChanged: function() {
+      if (this.queryMatches) {
+        this.selected = this.defaultSelected;
       }
+      this.narrow = this.queryMatches;
+      this.fire('core-responsive-change', {narrow: this.narrow});
+    }
 
-    });
+  });
 
-  </script>
-
+</script>
 </polymer-element>
