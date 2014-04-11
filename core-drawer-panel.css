@@ -30,16 +30,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   transition: transform ease-in-out 0.3s, width ease-in-out 0.3s;
 }
 
-/*
-right-drawer: make drawer on the right side
-*/
-:host(.right-drawer) #drawer {
-  left: auto;
-  right: 0;
-  transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s;
-  transition: transform ease-in-out 0.3s, width ease-in-out 0.3s;
-}
-
 /*@polyfill :host [drawer] */
 ::content[select="[drawer]"] > * {
   position: absolute;
@@ -61,12 +51,6 @@ right-drawer: make drawer on the right side
   transition: left ease-in-out 0.3s, padding ease-in-out 0.3s;
 }
 
-:host(.right-drawer) #main {
-  left: 0;
-  right: 256px;
-  transition: right ease-in-out 0.3s, padding ease-in-out 0.3s;
-}
-
 #scrim {
   position: absolute;
   top: 0;
@@ -77,35 +61,6 @@ right-drawer: make drawer on the right side
   visibility: hidden;
   opacity: 0;
   transition: opacity ease-in-out 0.38s, visibility ease-in-out 0.38s;
-}
-
-/* 
-main-center-margin: helper class to center the main panel and also 
-have some margin around it 
-*/
-:host(.main-center-margin) #main {
-  padding: 20px;
-}
-
-/*@polyfill :host(.main-center-margin) [main] */
-:host(.main-center-margin) ::content[select="[main]"] > * {
-  margin: 0 auto;
-}
-
-/*
-no-peek: helper class to make drawer panel 100% width in narrow layout
-*/
-:host(.no-peek) .narrow-layout > #drawer {
-  width: 100%;
-}
-
-:host(.no-peek) .narrow-layout > #drawer:not(.core-selected) {
-  left: -100%;
-}
-
-:host(.no-peek.right-drawer) .narrow-layout > #drawer:not(.core-selected) {
-  left: auto;
-  right: -100%;
 }
 
 /*
@@ -125,20 +80,8 @@ narrow layout
   transform: translate3d(-256px, 0, 0);
 }
 
-:host(.right-drawer) .narrow-layout > #drawer:not(.core-selected) {
-  left: auto;
-  -webkit-transform: translate3d(256px, 0, 0);
-  transform: translate3d(256px, 0, 0);
-}
-
 .narrow-layout > #main {
   left: 0;
-  padding: 0;
-}
-
-:host(.right-drawer) .narrow-layout > #main {
-  left: 0;
-  right: 0;
   padding: 0;
 }
 
