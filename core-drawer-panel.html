@@ -33,7 +33,7 @@ Example:
 <link rel="import" href="../core-media-query/core-media-query.html">
 <link rel="import" href="../core-selector/core-selector.html">
 
-<polymer-element name="core-drawer-panel" attributes="selected defaultSelected responsiveWidth narrow">
+<polymer-element name="core-drawer-panel">
 <template>
 
   <link rel="stylesheet" href="core-drawer-panel.css">
@@ -65,43 +65,46 @@ Example:
      * @param {boolean} detail.narrow true if the panel is in narrow layout.
      */
 
-    /**
-     * Max-width when the panel changes to narrow layout.
-     *
-     * @attribute responsiveWidth
-     * @type string
-     * @default '640px'
-     */
-    responsiveWidth: '640px',
+    publish: {
+      /**
+       * Max-width when the panel changes to narrow layout.
+       *
+       * @attribute responsiveWidth
+       * @type string
+       * @default '640px'
+       */
+      responsiveWidth: '640px',
+      
+      /**
+       * The panel that is being selected. `drawer` for the drawer panel and
+       * `main` for the main panel.
+       *
+       * @attribute selected
+       * @type string
+       * @default null
+       */
+      selected: null,
+      
+      /**
+       * The panel to be selected when `core-drawer-panel` changes to narrow 
+       * layout.
+       *
+       * @attribute defaultSelected
+       * @type string
+       * @default 'main'
+       */
+      defaultSelected: 'main',
     
-    /**
-     * The panel that is being selected. `drawer` for the drawer panel and
-     * `main` for the main panel.
-     *
-     * @attribute selected
-     * @type string
-     * @default ''
-     */
-    
-    /**
-     * The panel to be selected when `core-drawer-panel` changes to narrow 
-     * layout.
-     *
-     * @attribute defaultSelected
-     * @type string
-     * @default 'main'
-     */
-    defaultSelected: 'main',
-    
-    /**
-     * Returns true if the panel is in narrow layout.  This is useful if you
-     * need to show/hide elements based on the layout.
-     *
-     * @attribute narrow
-     * @type boolean
-     * @default false
-     */
-    narrow: false,
+      /**
+       * Returns true if the panel is in narrow layout.  This is useful if you
+       * need to show/hide elements based on the layout.
+       *
+       * @attribute narrow
+       * @type boolean
+       * @default false
+       */
+      narrow: {value: false, reflect: true}
+    },
 
     togglePanel: function() {
       this.selected = this.selected === 'main' ? 'drawer' : 'main';
