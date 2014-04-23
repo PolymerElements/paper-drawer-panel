@@ -79,19 +79,6 @@ right-drawer: make drawer on the right side
   transition: opacity ease-in-out 0.38s, visibility ease-in-out 0.38s;
 }
 
-/* 
-main-center-margin: helper class to center the main panel and also 
-have some margin around it 
-*/
-:host(.main-center-margin) #main {
-  padding: 20px;
-}
-
-/*@polyfill :host(.main-center-margin) [main] */
-:host(.main-center-margin) ::content[select="[main]"] > * {
-  margin: 0 auto;
-}
-
 /*
 no-peek: helper class to make drawer panel 100% width in narrow layout
 */
