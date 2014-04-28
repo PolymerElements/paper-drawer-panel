@@ -105,9 +105,23 @@ Example:
        */
       narrow: {value: false, reflect: true}
     },
+    
+    ready: function() {
+      this.async(function() {
+        this.classList.add('core-panel-transition');
+      });
+    },
 
     togglePanel: function() {
       this.selected = this.selected === 'main' ? 'drawer' : 'main';
+    },
+    
+    openDrawer: function() {
+      this.selected = 'drawer';
+    },
+    
+    closeDrawer: function() {
+      this.selected = 'main';
     },
 
     queryMatchesChanged: function() {

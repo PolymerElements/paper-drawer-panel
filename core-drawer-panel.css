@@ -26,6 +26,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   height: 100%;
   box-sizing: border-box;
   -mox-box-sizing: border-box;
+}
+
+:host(.core-panel-transition) #drawer {
   transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s;
   transition: transform ease-in-out 0.3s, width ease-in-out 0.3s;
 }
@@ -58,6 +61,9 @@ right-drawer: make drawer on the right side
   bottom: 0;
   left: 256px;
   overflow: auto;
+}
+
+:host(.core-panel-transition) #main {
   transition: left ease-in-out 0.3s, padding ease-in-out 0.3s;
 }
 
