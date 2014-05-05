@@ -40,7 +40,7 @@ Example:
 
   <core-media-query query="max-width: {{responsiveWidth}}" queryMatches="{{queryMatches}}"></core-media-query>
 
-  <core-selector class="{{queryMatches ? 'narrow-layout' : ''}}" valueattr="id" selected="{{selected}}">
+  <core-selector class="{{ {'narrow-layout' : queryMatches, transition : transition} | tokenList }}" valueattr="id" selected="{{selected}}">
 
     <div id="main" >
       <content select="[main]"></content>
@@ -83,7 +83,7 @@ Example:
        * @type string
        * @default null
        */
-      selected: null,
+      selected: {value: null, reflect: true},
       
       /**
        * The panel to be selected when `core-drawer-panel` changes to narrow 
@@ -106,10 +106,13 @@ Example:
       narrow: {value: false, reflect: true}
     },
     
-    ready: function() {
+    transition: false,
+    
+    attached: function() {
+      // to avoid transition at the beginning e.g. page loads
       this.async(function() {
-        this.classList.add('core-panel-transition');
-      });
+        this.transition = true;
+      }, null, 100);
     },
 
     togglePanel: function() {
