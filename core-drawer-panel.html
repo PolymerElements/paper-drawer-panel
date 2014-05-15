@@ -108,11 +108,9 @@ Example:
     
     transition: false,
     
-    attached: function() {
+    domReady: function() {
       // to avoid transition at the beginning e.g. page loads
-      this.async(function() {
-        this.transition = true;
-      }, null, 100);
+      this.transition = true;
     },
 
     togglePanel: function() {
