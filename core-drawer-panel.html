@@ -168,14 +168,29 @@ To position the drawer to the right, add `rightDrawer` attribute.
       });
     },
 
+    /**
+     * Toggles the panel open and closed.
+     * 
+     * @method togglePanel
+     */
     togglePanel: function() {
       this.selected = this.selected === 'main' ? 'drawer' : 'main';
     },
     
+    /**
+     * Opens the drawer.
+     * 
+     * @method openDrawer
+     */
     openDrawer: function() {
       this.selected = 'drawer';
     },
     
+    /**
+     * Closes the drawer.
+     * 
+     * @method closeDrawer
+     */
     closeDrawer: function() {
       this.selected = 'main';
     },
