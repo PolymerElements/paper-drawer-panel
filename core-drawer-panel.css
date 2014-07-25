@@ -102,7 +102,7 @@ narrow layout
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-:host(.right-drawer) .narrow-layout > #drawer.core-selected {
+.right-drawer.narrow-layout > #drawer.core-selected {
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
