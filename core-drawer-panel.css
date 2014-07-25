@@ -102,6 +102,10 @@ narrow layout
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
+:host(.right-drawer) .narrow-layout > #drawer.core-selected {
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 polyfill-next-selector { content: ':host .narrow-layout > #drawer > [drawer]'; }
 .narrow-layout > #drawer > ::content[select="[drawer]"] > * {
   border: 0;
