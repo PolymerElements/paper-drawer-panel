@@ -21,8 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   position: absolute;
   top: 0;
   left: 0;
-  /* FIXME(ffu): remove hard-coded drawer panel width */
-  width: 256px;
   height: 100%;
   box-sizing: border-box;
   -mox-box-sizing: border-box;
@@ -62,7 +60,6 @@ polyfill-next-selector { content: ':host [drawer]'; }
   top: 0;
   right: 0;
   bottom: 0;
-  left: 256px;
 }
 
 .transition #main {
@@ -71,7 +68,6 @@ polyfill-next-selector { content: ':host [drawer]'; }
 
 .right-drawer #main {
   left: 0;
-  right: 256px;
 }
 
 .right-drawer.transition #main {

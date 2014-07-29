@@ -65,12 +65,12 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
   <core-selector class="{{ {'narrow-layout' : queryMatches, transition : transition, dragging : dragging, 'right-drawer': rightDrawer} | tokenList }}" valueattr="id" selected="{{selected}}">
 
-    <div id="main" >
+    <div id="main" _style="left: {{ narrow || rightDrawer ? '0' : drawerWidth }}; right: {{ rightDrawer ? (narrow ? '' : drawerWidth) : '' }};">
       <content select="[main]"></content>
       <div id="scrim" on-tap="{{togglePanel}}"></div>
     </div>
     
-    <div id="drawer">
+    <div id="drawer" _style="width: {{ drawerWidth }}">
       <content select="[drawer]"></content>
     </div>
 
@@ -89,6 +89,16 @@ To position the drawer to the right, add `rightDrawer` attribute.
      */
 
     publish: {
+      
+      /**
+       * Width of the drawer panel.
+       *
+       * @attribute drawerWidth
+       * @type string
+       * @default '256px'
+       */
+      drawerWidth: '256px',
+      
       /**
        * Max-width when the panel changes to narrow layout.
        *
