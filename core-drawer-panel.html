@@ -56,7 +56,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
 <link rel="import" href="../core-media-query/core-media-query.html">
 <link rel="import" href="../core-selector/core-selector.html">
 
-<polymer-element name="core-drawer-panel">
+<polymer-element name="core-drawer-panel" touch-action="auto">
 <template>
 
   <link rel="stylesheet" href="core-drawer-panel.css">
@@ -159,7 +159,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
     
     eventDelegates: {
       trackstart: 'trackStart',
-      track: 'track',
+      trackx: 'trackx',
       trackend: 'trackEnd'
     },
     
@@ -235,7 +235,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       }
     },
 
-    track : function(e) {
+    trackx : function(e) {
       if (this.dragging) {
         var x;
         if (this.rightDrawer) {
