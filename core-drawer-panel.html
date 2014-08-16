@@ -89,7 +89,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
      */
 
     publish: {
-      
+
       /**
        * Width of the drawer panel.
        *
@@ -98,7 +98,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @default '256px'
        */
       drawerWidth: '256px',
-      
+
       /**
        * Max-width when the panel changes to narrow layout.
        *
@@ -107,7 +107,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @default '640px'
        */
       responsiveWidth: '640px',
-      
+
       /**
        * The panel that is being selected. `drawer` for the drawer panel and
        * `main` for the main panel.
@@ -117,7 +117,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @default null
        */
       selected: {value: null, reflect: true},
-      
+
       /**
        * The panel to be selected when `core-drawer-panel` changes to narrow 
        * layout.
@@ -127,7 +127,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @default 'main'
        */
       defaultSelected: 'main',
-    
+
       /**
        * Returns true if the panel is in narrow layout.  This is useful if you
        * need to show/hide elements based on the layout.
@@ -137,7 +137,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @default false
        */
       narrow: {value: false, reflect: true},
-      
+
       /**
        * If true, position the drawer to the right.
        *
@@ -146,7 +146,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @default false
        */
       rightDrawer: false,
-      
+
       /**
        * If true, swipe to open/close the drawer is disabled.
        *
@@ -156,17 +156,24 @@ To position the drawer to the right, add `rightDrawer` attribute.
        */
       disableSwipe: false
     },
-    
+
     eventDelegates: {
       trackstart: 'trackStart',
       trackx: 'trackx',
-      trackend: 'trackEnd'
+      trackend: 'trackEnd',
+      down: 'touchStart',
+      up: 'touchEnd',
     },
-    
+
     transition: false,
 
+    // How many pixels on the side of the screen are sensitive to edge swipes and peek.
     edgeSwipeSensitivity: 15,
-    
+
+    // Whether the drawer is peeking out from the edge.
+    peeking: false,
+
+    // Whether the user is dragging the drawer interactively.
     dragging: false,
 
     // Whether the browser has support for the transform CSS property.
@@ -225,18 +232,43 @@ To position the drawer to the right, add `rightDrawer` attribute.
           this.narrow && !this.disableSwipe ? 'pan-y' : '');
       this.fire('core-responsive-change', {narrow: this.narrow});
     },
-    
+
+    startEdgePeek: function() {
+      this.width = this.$.drawer.offsetWidth;
+      this.moveDrawer(this.translateXForDeltaX(this.edgeSwipeSensitivity));
+      this.peeking = true;
+    },
+
+    stopEdgePeak: function() {
+      if (this.peeking) {
+        this.peeking = false;
+        this.moveDrawer(null);
+      }
+    },
+
+    touchStart: function(e) {
+      if (!this.dragging && this.selected === 'main' && this.isEdgeTouch(e))
+        this.startEdgePeek();
+    },
+
+    touchEnd: function(e) {
+      this.stopEdgePeak();
+    },
+
+    isEdgeTouch: function(e) {
+      return this.rightDrawer ?
+        e.pageX >= this.offsetWidth - this.edgeSwipeSensitivity :
+        e.pageX <= this.edgeSwipeSensitivity;
+    },
+
     // swipe support for the drawer, inspired by
     // https://github.com/Polymer/core-drawer-panel/pull/6
     trackStart : function(e) {
       if (this.narrow && !this.disableSwipe) {
         this.dragging = true;
 
-        if (this.selected === 'main') {
-          this.dragging = this.rightDrawer ?
-              e.pageX >= this.offsetWidth - this.edgeSwipeSensitivity :
-              e.pageX <= this.edgeSwipeSensitivity;
-        }
+        if (this.selected === 'main')
+          this.dragging = this.peeking || this.isEdgeTouch(e);
 
         if (this.dragging) {
           this.width = this.$.drawer.offsetWidth;
@@ -246,15 +278,22 @@ To position the drawer to the right, add `rightDrawer` attribute.
       }
     },
 
+    translateXForDeltaX: function(deltaX) {
+      if (this.rightDrawer) {
+        return Math.max(0, (this.selected === 'main') ? this.width + deltaX : deltaX);
+      } else {
+        return Math.min(0, (this.selected === 'main') ? deltaX - this.width : deltaX);
+      }
+    },
+
     trackx : function(e) {
       if (this.dragging) {
-        var x;
-        if (this.rightDrawer) {
-          x = Math.max(0, (this.selected === 'main') ? this.width + e.dx : e.dx);
-        } else {
-          x = Math.min(0, (this.selected === 'main') ? e.dx - this.width : e.dx);
+        if (this.peeking) {
+          if (e.dx <= this.edgeSwipeSensitivity)
+            return; // Ignore trackx until we move past the edge peek.
+          this.peeking = false;
         }
-        this.moveDrawer(x);
+        this.moveDrawer(this.translateXForDeltaX(e.dx));
       }
     },
 
@@ -277,7 +316,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         return '';
       return this.hasWillChange ? 'translateX(' + translateX + 'px)' : 'translate3d(' + translateX + 'px, 0, 0)';
     },
-    
+
     moveDrawer: function(translateX) {
       var s = this.$.drawer.style;
 
