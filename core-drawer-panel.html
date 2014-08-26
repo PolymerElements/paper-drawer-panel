@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!--
 `core-drawer-panel` contains a drawer panel and a main panel.  The drawer
 and the main panel are side-by-side with drawer on the left.  When browser
-window size is smaller than the `responsiveWidth`, `core-drawer-panel` 
+window size is smaller than the `responsiveWidth`, `core-drawer-panel`
 changes to narrow layout.  In narrow layout, the drawer will be stacked on top
 of the main panel.  The drawer will be slided in/out to hide/reveal the main
 panel.
@@ -24,7 +24,7 @@ Example:
       <div drawer> Drawer panel... </div>
       <div main> Main panel... </div>
     </core-drawer-panel>
-    
+
 The drawer and the main panels are not scrollable.  You can set CSS overflow
 property on the elements to make them scrollable or use `core-header-panel`.
 
@@ -40,7 +40,7 @@ Example:
         <div> Main content... </div>
       </core-header-panel>
     </core-drawer-panel>
-    
+
 To position the drawer to the right, add `rightDrawer` attribute.
 
     <core-drawer-panel rightDrawer>
@@ -69,7 +69,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       <content select="[main]"></content>
       <div id="scrim" on-tap="{{togglePanel}}"></div>
     </div>
-    
+
     <div id="drawer" _style="width: {{ drawerWidth }}">
       <content select="[drawer]"></content>
     </div>
@@ -80,9 +80,10 @@ To position the drawer to the right, add `rightDrawer` attribute.
 <script>
 
   Polymer('core-drawer-panel', {
+
     /**
      * Fired when the narrow layout changes.
-     * 
+     *
      * @event core-responsive-change
      * @param {Object} detail
      * @param {boolean} detail.narrow true if the panel is in narrow layout.
@@ -119,7 +120,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       selected: {value: null, reflect: true},
 
       /**
-       * The panel to be selected when `core-drawer-panel` changes to narrow 
+       * The panel to be selected when `core-drawer-panel` changes to narrow
        * layout.
        *
        * @attribute defaultSelected
@@ -162,9 +163,10 @@ To position the drawer to the right, add `rightDrawer` attribute.
       trackx: 'trackx',
       trackend: 'trackEnd',
       down: 'touchStart',
-      up: 'touchEnd',
+      up: 'touchEnd'
     },
 
+    // Whether the transition is enabled.
     transition: false,
 
     // How many pixels on the side of the screen are sensitive to edge swipes and peek.
@@ -198,25 +200,25 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
     /**
      * Toggles the panel open and closed.
-     * 
+     *
      * @method togglePanel
      */
     togglePanel: function() {
       this.selected = this.selected === 'main' ? 'drawer' : 'main';
     },
-    
+
     /**
      * Opens the drawer.
-     * 
+     *
      * @method openDrawer
      */
     openDrawer: function() {
       this.selected = 'drawer';
     },
-    
+
     /**
      * Closes the drawer.
-     * 
+     *
      * @method closeDrawer
      */
     closeDrawer: function() {
@@ -228,14 +230,18 @@ To position the drawer to the right, add `rightDrawer` attribute.
         this.selected = this.defaultSelected;
       }
       this.narrow = this.queryMatches;
-      this.setAttribute('touch-action', 
-          this.narrow && !this.disableSwipe ? 'pan-y' : '');
+      this.setAttribute('touch-action', this.swipeAllowed() ? 'pan-y' : '');
       this.fire('core-responsive-change', {narrow: this.narrow});
+    },
+
+    swipeAllowed: function() {
+      return this.narrow && !this.disableSwipe;
     },
 
     startEdgePeek: function() {
       this.width = this.$.drawer.offsetWidth;
-      this.moveDrawer(this.translateXForDeltaX(this.edgeSwipeSensitivity));
+      this.moveDrawer(this.translateXForDeltaX(this.rightDrawer ?
+          -this.edgeSwipeSensitivity : this.edgeSwipeSensitivity));
       this.peeking = true;
     },
 
@@ -256,15 +262,15 @@ To position the drawer to the right, add `rightDrawer` attribute.
     },
 
     isEdgeTouch: function(e) {
-      return this.rightDrawer ?
+      return this.swipeAllowed() && (this.rightDrawer ?
         e.pageX >= this.offsetWidth - this.edgeSwipeSensitivity :
-        e.pageX <= this.edgeSwipeSensitivity;
+        e.pageX <= this.edgeSwipeSensitivity);
     },
 
     // swipe support for the drawer, inspired by
     // https://github.com/Polymer/core-drawer-panel/pull/6
     trackStart : function(e) {
-      if (this.narrow && !this.disableSwipe) {
+      if (this.swipeAllowed()) {
         this.dragging = true;
 
         if (this.selected === 'main')
@@ -289,7 +295,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
     trackx : function(e) {
       if (this.dragging) {
         if (this.peeking) {
-          if (e.dx <= this.edgeSwipeSensitivity)
+          if (Math.abs(e.dx) <= this.edgeSwipeSensitivity)
             return; // Ignore trackx until we move past the edge peek.
           this.peeking = false;
         }
