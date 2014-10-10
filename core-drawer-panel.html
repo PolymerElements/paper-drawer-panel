@@ -61,9 +61,9 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
   <link rel="stylesheet" href="core-drawer-panel.css">
 
-  <core-media-query query="max-width: {{responsiveWidth}}" queryMatches="{{queryMatches}}"></core-media-query>
+  <core-media-query query="max-width: {{forceNarrow ? '' : responsiveWidth}}" queryMatches="{{queryMatches}}"></core-media-query>
 
-  <core-selector class="{{ {'narrow-layout' : queryMatches, transition : transition, dragging : dragging, 'right-drawer': rightDrawer} | tokenList }}" valueattr="id" selected="{{selected}}">
+  <core-selector class="{{ {'narrow-layout' : narrow, transition : transition, dragging : dragging, 'right-drawer': rightDrawer} | tokenList }}" valueattr="id" selected="{{selected}}">
 
     <div id="main" _style="left: {{ narrow || rightDrawer ? '0' : drawerWidth }}; right: {{ rightDrawer ? (narrow ? '' : drawerWidth) : '' }};">
       <content select="[main]"></content>
@@ -165,7 +165,16 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type string
        * @default "core-drawer-toggle"
        */
-      toggleAttribute: 'core-drawer-toggle'
+      toggleAttribute: 'core-drawer-toggle',
+      
+      /**
+       * If true, ignore `responsiveWidth` setting and force the narrow layout.
+       *
+       * @attribute forceNarrow
+       * @type boolean
+       * @default false
+       */
+      forceNarrow: false
     },
 
     eventDelegates: {
@@ -237,12 +246,16 @@ To position the drawer to the right, add `rightDrawer` attribute.
     },
 
     queryMatchesChanged: function() {
-      if (this.queryMatches) {
+      this.narrow = this.queryMatches || this.forceNarrow;
+      if (this.narrow) {
         this.selected = this.defaultSelected;
       }
-      this.narrow = this.queryMatches;
       this.setAttribute('touch-action', this.swipeAllowed() ? 'pan-y' : '');
       this.fire('core-responsive-change', {narrow: this.narrow});
+    },
+    
+    forceNarrowChanged: function() {
+      this.queryMatchesChanged();
     },
 
     swipeAllowed: function() {
@@ -345,7 +358,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       if (translateX === null) {
         return '';
       }
-      return this.hasWillChange ? 'translateX(' + translateX + 'px)' : 'translate3d(' + translateX + 'px, 0, 0)';
+      return this.hasWillChange ? 'translateX(' + translateX + 'px)' : 
+          'translate3d(' + translateX + 'px, 0, 0)';
     },
 
     moveDrawer: function(translateX) {
