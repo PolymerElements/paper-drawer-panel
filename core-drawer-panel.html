@@ -110,6 +110,19 @@ To position the drawer to the right, add `rightDrawer` attribute.
      * @param {Object} detail
      * @param {boolean} detail.narrow true if the panel is in narrow layout.
      */
+     
+    /**
+     * Fired when the selected panel changes.
+     * 
+     * Listening for this event is an alternative to observing changes in the `selected` attribute.
+     * This event is fired both when a panel is selected and deselected.
+     * The `isSelected` detail property contains the selection state.
+     * 
+     * @event core-select
+     * @param {Object} detail
+     * @param {boolean} detail.isSelected true for selection and false for deselection
+     * @param {Object} detail.item the panel that the event refers to
+     */
 
     publish: {
 
