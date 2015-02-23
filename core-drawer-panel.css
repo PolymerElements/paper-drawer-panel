@@ -7,7 +7,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-:host {
+core-drawer-panel {
   display: block;
   position: absolute;
   top: 0;
@@ -40,8 +40,7 @@ right-drawer: make drawer on the right side
   right: 0;
 }
 
-polyfill-next-selector { content: ':host [drawer]'; }
-::content[select="[drawer]"] > * {
+core-drawer-panel [drawer] > * {
   position: absolute;
   top: 0;
   left: 0;
@@ -70,8 +69,7 @@ core-selector > #main {
   transition: right ease-in-out 0.3s, padding ease-in-out 0.3s;
 }
 
-polyfill-next-selector { content: '#main > [main]'; }
-::content[select="[main]"] > * {
+#main > [main] {
   height: 100%;
 }
 
@@ -144,8 +142,7 @@ polyfill-next-selector { content: ':host .narrow-layout > #drawer > [drawer]'; }
   opacity: 1;
 }
 
-polyfill-next-selector { content: ':host .narrow-layout > #main > [main]'; }
-.narrow-layout > #main > ::content[select="[main]"] > * {
+core-drawer-panel > .narrow-layout > #main > [main] > * {
   margin: 0;
   min-height: 100%;
   left: 0;
@@ -154,7 +151,6 @@ polyfill-next-selector { content: ':host .narrow-layout > #main > [main]'; }
   -moz-box-sizing: border-box;
 }
 
-polyfill-next-selector { content: 'core-selector:not(.narrow-layout) [core-drawer-toggle]'; }
-core-selector:not(.narrow-layout) ::content [core-drawer-toggle] {
+core-drawer-panel > core-selector:not(.narrow-layout) [core-drawer-toggle] {
   display: none;
 }
