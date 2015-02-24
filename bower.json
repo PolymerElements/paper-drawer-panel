@@ -9,5 +9,9 @@
   "devDependencies": {
     "webcomponentsjs": "~0.5.5",
     "core-component-page": "Polymer/core-component-page#~0.5.5"
+  },
+  "repo": {
+    "type": "git",
+    "url": "git://github.com/Polymer/core-drawer-panel.git"
   }
 }
