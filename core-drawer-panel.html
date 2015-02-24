@@ -76,6 +76,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+
 <link rel="import" href="../core-media-query/core-media-query.html">
 <link rel="import" href="../core-selector/core-selector.html">
 
@@ -83,7 +84,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
   <link rel="stylesheet" href="core-drawer-panel.css">
 
   <template>
-    <!-- <core-media-query query="[[calculateMediaQuery(forceNarrow, responsiveWidth)]]" queryMatches="{{queryMatches}}"></core-media-query> -->
+    <!-- <core-media-query query="mediaQuery" queryMatches="{{queryMatches}}"></core-media-query> -->
 
     <core-selector class$="[[coreSelectorClass]]" valueattr="id" selected="{{selected}}">
 
@@ -134,7 +135,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
     calculateMainStyle: function(narrow, rightDrawer, drawerWidth) {
       var style = '';
 
-      style += 'left:' + (narrow || rightDrawer) ? '0' : drawerWidth + ';';
+      style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';';
       style += 'right:' + (rightDrawer ? (narrow ? '' : drawerWidth) : '') + ';';
 
       return style;
@@ -355,9 +356,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
     queryMatchesChanged: function() {
       this.narrow = this.queryMatches || this.forceNarrow;
+
       if (this.narrow) {
         this.selected = this.defaultSelected;
       }
+
       this.setAttribute('touch-action', this.swipeAllowed() ? 'pan-y' : '');
       this.fire('core-responsive-change', {narrow: this.narrow});
     },

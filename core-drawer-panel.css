@@ -40,7 +40,7 @@ right-drawer: make drawer on the right side
   right: 0;
 }
 
-core-drawer-panel [drawer] > * {
+core-drawer-panel #drawer > * {
   position: absolute;
   top: 0;
   left: 0;
