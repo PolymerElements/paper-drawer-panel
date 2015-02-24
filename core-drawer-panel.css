@@ -142,7 +142,7 @@ polyfill-next-selector { content: ':host .narrow-layout > #drawer > [drawer]'; }
   opacity: 1;
 }
 
-core-drawer-panel > .narrow-layout > #main > [main] > * {
+core-drawer-panel > .narrow-layout > #main > * {
   margin: 0;
   min-height: 100%;
   left: 0;

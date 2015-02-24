@@ -461,6 +461,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       if (translateX === null) {
         return '';
       }
+
       return this.hasWillChange ? 'translateX(' + translateX + 'px)' :
           'translate3d(' + translateX + 'px, 0, 0)';
     },
