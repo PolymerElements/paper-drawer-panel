@@ -5,5 +5,9 @@
     "core-selector": "Polymer/core-selector#0.8-preview",
     "core-media-query": "Polymer/core-media-query#0.8-preview",
     "polymer": "Polymer/polymer#0.8-preview"
+  },
+  "devDependencies": {
+    "webcomponentsjs": "~0.5.5",
+    "core-component-page": "Polymer/core-component-page#~0.5.5"
   }
 }
