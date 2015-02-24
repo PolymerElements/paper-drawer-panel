@@ -1,6 +1,9 @@
 {
   "name": "core-drawer-panel",
   "private": true,
+  "authors": [
+    "The Polymer Authors"
+  ],
   "dependencies": {
     "core-selector": "Polymer/core-selector#0.8-preview",
     "core-media-query": "Polymer/core-media-query#0.8-preview",
