@@ -84,7 +84,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
   <link rel="stylesheet" href="core-drawer-panel.css">
 
   <template>
-    <!-- <core-media-query query="mediaQuery" queryMatches="{{queryMatches}}"></core-media-query> -->
+    <core-media-query query="[[mediaQuery]]" on-query-matches-changed="onQueryMatchesChanged"></core-media-query>
 
     <core-selector class$="[[coreSelectorClass]]" attrForSelected="id" selected="{{selected}}">
 
@@ -313,18 +313,12 @@ To position the drawer to the right, add `rightDrawer` attribute.
       };
     },
 
-    created: function() {
+    ready: function() {
       this.hasTransform = 'transform' in this.style;
       this.hasWillChange = 'willChange' in this.style;
-    },
 
-    domReady: function() {
-      // to avoid transition at the beginning e.g. page loads
-      // NOTE: domReady is already raf delayed and delaying another frame
-      // ensures a layout has occurred.
-      this.async(function() {
-        this.transition = true;
-      });
+      // Avoid transition at the beginning e.g. page loads
+      this.transition = true;
     },
 
     /**
@@ -354,8 +348,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       this.selected = 'main';
     },
 
-    queryMatchesChanged: function() {
-      this.narrow = this.queryMatches || this.forceNarrow;
+    onQueryMatchesChanged: function(event) {
+      this.narrow = event.detail.value || this.forceNarrow;
 
       if (this.narrow) {
         this.selected = this.defaultSelected;
