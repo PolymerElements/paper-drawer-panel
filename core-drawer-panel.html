@@ -179,7 +179,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type string
        * @default '256px'
        */
-      // drawerWidth: '256px',
       drawerWidth: String,
 
       /**
@@ -189,7 +188,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type string
        * @default '640px'
        */
-      // responsiveWidth: '640px',
       responsiveWidth: String,
 
       /**
@@ -200,7 +198,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type string
        * @default null
        */
-      // selected: {value: null, reflect: true},
       selected: {
         reflect: true,
         type: String
@@ -214,7 +211,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type string
        * @default 'main'
        */
-      // defaultSelected: 'main',
       defaultSelected: String,
 
       /**
@@ -225,7 +221,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type boolean
        * @default false
        */
-      // narrow: {value: false, reflect: true},
       narrow: {
         reflect: true,
         type: String
@@ -238,7 +233,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type boolean
        * @default false
        */
-      // rightDrawer: false,
       rightDrawer: Boolean,
 
       /**
@@ -248,7 +242,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type boolean
        * @default false
        */
-      // disableSwipe: false,
       disableSwipe: Boolean,
 
       /**
@@ -258,7 +251,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type boolean
        * @default false
        */
-      // forceNarrow: false,
       forceNarrow: Boolean,
 
       /**
@@ -268,7 +260,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @type boolean
        * @default false
        */
-      // disableEdgeSwipe: false
       disableEdgeSwipe: Boolean
     },
 
@@ -306,10 +297,13 @@ To position the drawer to the right, add `rightDrawer` attribute.
     configure: function() {
       return {
         defaultSelected: 'main',
+        disableEdgeSwipe: false,
         drawerWidth: '256px',
+        forceNarrow: false,
         narrow: false,
         responsiveWidth: '640px',
-        rightDrawer: false
+        rightDrawer: false,
+        selected: null
       };
     },
 
