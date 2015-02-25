@@ -375,7 +375,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       this.peeking = true;
     },
 
-    stopEdgePeak: function() {
+    stopEdgePeek: function() {
       if (this.peeking) {
         this.peeking = false;
         this.moveDrawer(null);
@@ -389,7 +389,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
     },
 
     upHandler: function(e) {
-      this.stopEdgePeak();
+      this.stopEdgePeek();
     },
 
     onClick: function(e) {
