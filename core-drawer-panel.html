@@ -291,38 +291,42 @@ To position the drawer to the right, add `rightDrawer` attribute.
         up: 'upHandler'
       },
 
-      // Whether the transition is enabled.
-      transition: false,
-
-      // How many pixels on the side of the screen are sensitive to edge swipes and peek.
-      edgeSwipeSensitivity: 15,
-
-      // Whether the drawer is peeking out from the edge.
-      peeking: false,
-
-      // Whether the user is dragging the drawer interactively.
-      dragging: false,
-
-      // Whether the browser has support for the transform CSS property.
-      hasTransform: true,
-
-      // Whether the browser has support for the will-change CSS property.
-      hasWillChange: true,
-
-      // The attribute on elements that should toggle the drawer on tap, also
-      // elements will automatically be hidden in wide layout.
-      toggleAttribute: 'core-drawer-toggle',
-
       configure: function() {
         return {
           defaultSelected: 'main',
           disableEdgeSwipe: false,
+
+          // Whether the user is dragging the drawer interactively.
+          dragging: false,
+
           drawerWidth: '256px',
+
+          // How many pixels on the side of the screen are sensitive to edge swipes and peek.
+          edgeSwipeSensitivity: 15,
+
           forceNarrow: false,
+
+          // Whether the browser has support for the transform CSS property.
+          hasTransform: true,
+
+          // Whether the browser has support for the will-change CSS property.
+          hasWillChange: true,
+
           narrow: false,
+
+          // Whether the drawer is peeking out from the edge.
+          peeking: false,
+
           responsiveWidth: '640px',
           rightDrawer: false,
-          selected: null
+          selected: null,
+
+          // The attribute on elements that should toggle the drawer on tap, also
+          // elements will automatically be hidden in wide layout.
+          toggleAttribute: 'core-drawer-toggle',
+
+          // Whether the transition is enabled.
+          transition: false,
         };
       },
 
