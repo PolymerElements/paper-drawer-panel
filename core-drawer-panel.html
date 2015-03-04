@@ -86,11 +86,14 @@ To position the drawer to the right, add `rightDrawer` attribute.
   <template>
     <core-media-query query="[[mediaQuery]]" on-query-matches-changed="onQueryMatchesChanged"></core-media-query>
 
-    <core-selector class-name="[[coreSelectorClass]]" attrForSelected="id" selected="{{selected}}">
+    <core-selector class-name="[[coreSelectorClass]]"
+        attrForSelected="id"
+        on-core-activate="onSelect"
+        selected="[[selected]]">
 
       <div id="main" style="[[mainStyle]]">
         <content select="[main]"></content>
-        <div id="scrim" on-tap="[[togglePanel]]"></div>
+        <div id="scrim"></div>
         <div id="edgeSwipeOverlay" class-name="[[swipeOverlayClass]]"></div>
       </div>
 
@@ -499,6 +502,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
         } else {
           s.webkitTransform = this.transformForTranslateX(translateX);
         }
+      },
+
+      onSelect: function(event) {
+        event.preventDefault();
+        this.selected = event.detail.selected;
       }
 
     });
