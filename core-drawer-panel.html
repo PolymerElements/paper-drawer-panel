@@ -281,6 +281,10 @@ To position the drawer to the right, add `rightDrawer` attribute.
         disableEdgeSwipe: Boolean
       },
 
+      bind: {
+        forceNarrow: 'forceNarrowChanged'
+      },
+
       listeners: {
         click: 'onClick'
       },
@@ -372,8 +376,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
         this.selected = 'main';
       },
 
-      onQueryMatchesChanged: function(event) {
-        this.narrow = event.detail.value || this.forceNarrow;
+      _responsiveChange: function(narrow) {
+        this.narrow = narrow;
 
         if (this.narrow) {
           this.selected = this.defaultSelected;
@@ -383,8 +387,12 @@ To position the drawer to the right, add `rightDrawer` attribute.
         this.fire('core-responsive-change', {narrow: this.narrow});
       },
 
+      onQueryMatchesChanged: function(event) {
+        this._responsiveChange(event.detail.value);
+      },
+
       forceNarrowChanged: function() {
-        this.onQueryMatchesChanged();
+        this._responsiveChange(this.forceNarrow);
       },
 
       swipeAllowed: function() {
@@ -459,7 +467,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      trackx : function(e) {
+      trackx: function(e) {
         if (this.dragging) {
           if (this.peeking) {
             if (Math.abs(e.dx) <= this.edgeSwipeSensitivity) {
@@ -471,7 +479,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      trackEnd : function(e) {
+      trackEnd: function(e) {
         if (this.dragging) {
           this.dragging = false;
           this.transition = true;
