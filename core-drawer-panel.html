@@ -344,7 +344,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * @method togglePanel
        */
       togglePanel: function() {
-        this.selected = this.isMainSelected() ? 'drawer' : 'main';
+        if (this.isMainSelected()) {
+          this.openDrawer();
+        } else {
+          this.closeDrawer();
+        }
       },
 
       /**
@@ -444,6 +448,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       translateXForDeltaX: function(deltaX) {
         var isMain = this.isMainSelected();
+
         if (this.rightDrawer) {
           return Math.max(0, isMain ? this.width + deltaX : deltaX);
         } else {
@@ -470,9 +475,9 @@ To position the drawer to the right, add `rightDrawer` attribute.
           this.moveDrawer(null);
 
           if (this.rightDrawer) {
-            this.selected = e.xDirection > 0 ? 'main' : 'drawer';
+            this[(e.xDirection > 0) ? 'closeDrawer' : 'openDrawer']();
           } else {
-            this.selected = e.xDirection > 0 ? 'drawer' : 'main';
+            this[(e.xDirection > 0) ? 'openDrawer' : 'closeDrawer']();
           }
         }
       },
