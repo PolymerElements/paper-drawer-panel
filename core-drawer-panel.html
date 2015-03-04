@@ -308,7 +308,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
           drawerWidth: '256px',
 
-          // How many pixels on the side of the screen are sensitive to edge swipes and peek.
+          // How many pixels on the side of the screen are sensitive to edge
+          // swipes and peek.
           edgeSwipeSensitivity: 15,
 
           forceNarrow: false,
@@ -328,8 +329,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
           rightDrawer: false,
           selected: null,
 
-          // The attribute on elements that should toggle the drawer on tap, also
-          // elements will automatically be hidden in wide layout.
+          // The attribute on elements that should toggle the drawer on tap,
+          // also elements will automatically be hidden in wide layout.
           toggleAttribute: 'core-drawer-toggle',
 
           // Whether the transition is enabled.
@@ -428,9 +429,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
       },
 
       onClick: function(e) {
-        if (e.target &&
-            this.toggleAttribute &&
-            e.target.hasAttribute(this.toggleAttribute)) {
+        var isTargetToggleElement = e.target &&
+          this.toggleAttribute &&
+          e.target.hasAttribute(this.toggleAttribute);
+
+        if (isTargetToggleElement) {
           this.togglePanel();
         }
       },
