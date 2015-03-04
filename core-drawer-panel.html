@@ -387,8 +387,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
         this.fire('core-responsive-change', {narrow: this.narrow});
       },
 
-      onQueryMatchesChanged: function(event) {
-        this._responsiveChange(event.detail.value);
+      onQueryMatchesChanged: function(e) {
+        this._responsiveChange(e.detail.value);
       },
 
       forceNarrowChanged: function() {
@@ -428,7 +428,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       },
 
       onClick: function(e) {
-        if (e.target && this.toggleAttribute &&
+        if (e.target &&
+            this.toggleAttribute &&
             e.target.hasAttribute(this.toggleAttribute)) {
           this.togglePanel();
         }
@@ -512,9 +513,9 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      onSelect: function(event) {
-        event.preventDefault();
-        this.selected = event.detail.selected;
+      onSelect: function(e) {
+        e.preventDefault();
+        this.selected = e.detail.selected;
       }
 
     });
