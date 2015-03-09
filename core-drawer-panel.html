@@ -226,6 +226,20 @@ To position the drawer to the right, add `rightDrawer` attribute.
           value: false
         },
 
+        // Whether the browser has support for the transform CSS property.
+        hasTransform: {
+          value: function() {
+            return 'transform' in this.style;
+          }
+        },
+
+        // Whether the browser has support for the will-change CSS property.
+        hasWillChange: {
+          value: function() {
+            return 'willChange' in this.style;
+          }
+        },
+
         mainStyle: {
           computed: 'computeMainStyle(narrow, rightDrawer, drawerWidth)'
         },
@@ -346,12 +360,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
       },
 
       ready: function() {
-        // Whether the browser has support for the transform CSS property.
-        this.hasTransform = ('transform' in this.style);
-
-        // Whether the browser has support for the will-change CSS property.
-        this.hasWillChange = ('willChange' in this.style);
-
         // Avoid transition at the beginning e.g. page loads and enable
         // transitions only after the element is rendered and ready.
         this.transition = true;
