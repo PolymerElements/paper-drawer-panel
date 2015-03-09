@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -84,10 +84,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
   <link rel="stylesheet" href="core-drawer-panel.css">
 
   <template>
-    <core-media-query query="[[mediaQuery]]" on-query-matches-changed="onQueryMatchesChanged"></core-media-query>
+    <core-media-query query="[[mediaQuery]]" on-query-matches-changed="onQueryMatchesChanged">
+    </core-media-query>
 
     <core-selector class-name="[[coreSelectorClass]]"
-        attrForSelected="id"
+        attr-for-selected="id"
         on-core-activate="onSelect"
         selected="[[selected]]">
 
@@ -127,12 +128,183 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       is: 'core-drawer-panel',
 
-      computed: {
-        coreSelectorClass: 'calcCoreSelectorClass(narrow, transition, dragging, rightDrawer)',
-        drawerStyle: 'calcDrawerStyle(drawerWidth)',
-        mainStyle: 'calcMainStyle(narrow, rightDrawer, drawerWidth)',
-        mediaQuery: 'calcMediaQuery(forceNarrow, responsiveWidth)',
-        swipeOverlayClass: 'calcSwipeOverlayClass(narrow, disableEdgeSwipe)'
+      /**
+       * Fired when the narrow layout changes.
+       *
+       * @event core-responsive-change
+       * @param {Object} detail
+       * @param {boolean} detail.narrow true if the panel is in narrow layout.
+       */
+
+      /**
+       * Fired when the selected panel changes.
+       *
+       * Listening for this event is an alternative to observing changes in the `selected` attribute.
+       * This event is fired both when a panel is selected and deselected.
+       * The `isSelected` detail property contains the selection state.
+       *
+       * @event core-select
+       * @param {Object} detail
+       * @param {boolean} detail.isSelected true for selection and false for deselection
+       * @param {Object} detail.item the panel that the event refers to
+       */
+
+      properties: {
+
+        coreSelectorClass: {
+          computed: 'calcCoreSelectorClass(narrow, transition, dragging, rightDrawer)'
+        },
+
+        /**
+         * The panel to be selected when `core-drawer-panel` changes to narrow
+         * layout.
+         *
+         * @attribute defaultSelected
+         * @type string
+         * @default 'main'
+         */
+        defaultSelected: {
+          type: String,
+          value: 'main'
+        },
+
+        /**
+         * If true, swipe from the edge is disable.
+         *
+         * @attribute disableEdgeSwipe
+         * @type boolean
+         * @default false
+         */
+        disableEdgeSwipe: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * If true, swipe to open/close the drawer is disabled.
+         *
+         * @attribute disableSwipe
+         * @type boolean
+         * @default false
+         */
+        disableSwipe: Boolean,
+
+        // Whether the user is dragging the drawer interactively.
+        dragging: {
+          value: false
+        },
+
+        drawerStyle: {
+          computed: 'calcDrawerStyle(drawerWidth)'
+        },
+
+        /**
+         * Width of the drawer panel.
+         *
+         * @attribute drawerWidth
+         * @type string
+         * @default '256px'
+         */
+        drawerWidth: {
+          type: String,
+          value: '256px'
+        },
+
+        // How many pixels on the side of the screen are sensitive to edge
+        // swipes and peek.
+        edgeSwipeSensitivity: {
+          value: 15
+        },
+
+        /**
+         * If true, ignore `responsiveWidth` setting and force the narrow layout.
+         *
+         * @attribute forceNarrow
+         * @type boolean
+         * @default false
+         */
+        forceNarrow: {
+          observer: 'forceNarrowChanged',
+          type: Boolean,
+          value: false
+        },
+
+        mainStyle: {
+          computed: 'calcMainStyle(narrow, rightDrawer, drawerWidth)'
+        },
+
+        mediaQuery: {
+          computed: 'calcMediaQuery(forceNarrow, responsiveWidth)'
+        },
+
+        /**
+         * Returns true if the panel is in narrow layout.  This is useful if you
+         * need to show/hide elements based on the layout.
+         *
+         * @attribute narrow
+         * @type boolean
+         * @default false
+         */
+        narrow: {
+          reflect: true,
+          type: Boolean,
+          value: false
+        },
+
+        // Whether the drawer is peeking out from the edge.
+        peeking: false,
+
+        /**
+         * Max-width when the panel changes to narrow layout.
+         *
+         * @attribute responsiveWidth
+         * @type string
+         * @default '640px'
+         */
+        responsiveWidth: {
+          type: String,
+          value: '640px'
+        },
+
+        /**
+         * If true, position the drawer to the right.
+         *
+         * @attribute rightDrawer
+         * @type boolean
+         * @default false
+         */
+        rightDrawer: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * The panel that is being selected. `drawer` for the drawer panel and
+         * `main` for the main panel.
+         *
+         * @attribute selected
+         * @type string
+         * @default null
+         */
+        selected: {
+          reflect: true,
+          type: String,
+          value: null
+        },
+
+        swipeOverlayClass: {
+          computed: 'calcSwipeOverlayClass(narrow, disableEdgeSwipe)'
+        },
+
+        // The attribute on elements that should toggle the drawer on tap,
+        // also elements will automatically be hidden in wide layout.
+        drawerToggleAttribute: {
+          value: 'core-drawer-toggle'
+        },
+
+        // Whether the transition is enabled.
+        transition: false
+
       },
 
       calcCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
@@ -167,178 +339,22 @@ To position the drawer to the right, add `rightDrawer` attribute.
         });
       },
 
-      /**
-       * Fired when the narrow layout changes.
-       *
-       * @event core-responsive-change
-       * @param {Object} detail
-       * @param {boolean} detail.narrow true if the panel is in narrow layout.
-       */
-
-      /**
-       * Fired when the selected panel changes.
-       *
-       * Listening for this event is an alternative to observing changes in the `selected` attribute.
-       * This event is fired both when a panel is selected and deselected.
-       * The `isSelected` detail property contains the selection state.
-       *
-       * @event core-select
-       * @param {Object} detail
-       * @param {boolean} detail.isSelected true for selection and false for deselection
-       * @param {Object} detail.item the panel that the event refers to
-       */
-
-      published: {
-
-        /**
-         * Width of the drawer panel.
-         *
-         * @attribute drawerWidth
-         * @type string
-         * @default '256px'
-         */
-        drawerWidth: String,
-
-        /**
-         * Max-width when the panel changes to narrow layout.
-         *
-         * @attribute responsiveWidth
-         * @type string
-         * @default '640px'
-         */
-        responsiveWidth: String,
-
-        /**
-         * The panel that is being selected. `drawer` for the drawer panel and
-         * `main` for the main panel.
-         *
-         * @attribute selected
-         * @type string
-         * @default null
-         */
-        selected: {
-          reflect: true,
-          type: String
-        },
-
-        /**
-         * The panel to be selected when `core-drawer-panel` changes to narrow
-         * layout.
-         *
-         * @attribute defaultSelected
-         * @type string
-         * @default 'main'
-         */
-        defaultSelected: String,
-
-        /**
-         * Returns true if the panel is in narrow layout.  This is useful if you
-         * need to show/hide elements based on the layout.
-         *
-         * @attribute narrow
-         * @type boolean
-         * @default false
-         */
-        narrow: {
-          reflect: true,
-          type: Boolean
-        },
-
-        /**
-         * If true, position the drawer to the right.
-         *
-         * @attribute rightDrawer
-         * @type boolean
-         * @default false
-         */
-        rightDrawer: Boolean,
-
-        /**
-         * If true, swipe to open/close the drawer is disabled.
-         *
-         * @attribute disableSwipe
-         * @type boolean
-         * @default false
-         */
-        disableSwipe: Boolean,
-
-        /**
-         * If true, ignore `responsiveWidth` setting and force the narrow layout.
-         *
-         * @attribute forceNarrow
-         * @type boolean
-         * @default false
-         */
-        forceNarrow: Boolean,
-
-        /**
-         * If true, swipe from the edge is disable.
-         *
-         * @attribute disableEdgeSwipe
-         * @type boolean
-         * @default false
-         */
-        disableEdgeSwipe: Boolean
-      },
-
-      bind: {
-        forceNarrow: 'forceNarrowChanged'
-      },
-
       listeners: {
-        click: 'onClick'
-      },
-
-      // TODO(ssorallen): Convert to 0.8 touch events
-      eventDelegates: {
+        click: 'onClick',
+        down: 'downHandler',
         trackstart: 'trackStart',
         trackx: 'trackx',
         trackend: 'trackEnd',
-        down: 'downHandler',
         up: 'upHandler'
       },
 
-      configure: function() {
-        return {
-          defaultSelected: 'main',
-          disableEdgeSwipe: false,
-
-          // Whether the user is dragging the drawer interactively.
-          dragging: false,
-
-          drawerWidth: '256px',
-
-          // How many pixels on the side of the screen are sensitive to edge
-          // swipes and peek.
-          edgeSwipeSensitivity: 15,
-
-          forceNarrow: false,
-
-          // Whether the browser has support for the transform CSS property.
-          hasTransform: ('transform' in this.style),
-
-          // Whether the browser has support for the will-change CSS property.
-          hasWillChange: ('willChange' in this.style),
-
-          narrow: false,
-
-          // Whether the drawer is peeking out from the edge.
-          peeking: false,
-
-          responsiveWidth: '640px',
-          rightDrawer: false,
-          selected: null,
-
-          // The attribute on elements that should toggle the drawer on tap,
-          // also elements will automatically be hidden in wide layout.
-          toggleAttribute: 'core-drawer-toggle',
-
-          // Whether the transition is enabled.
-          transition: false,
-        };
-      },
-
       ready: function() {
+        // Whether the browser has support for the transform CSS property.
+        this.hasTransform = ('transform' in this.style);
+
+        // Whether the browser has support for the will-change CSS property.
+        this.hasWillChange = ('willChange' in this.style);
+
         // Avoid transition at the beginning e.g. page loads and enable
         // transitions only after the element is rendered and ready.
         this.transition = true;
@@ -428,8 +444,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       onClick: function(e) {
         var isTargetToggleElement = e.target &&
-          this.toggleAttribute &&
-          e.target.hasAttribute(this.toggleAttribute);
+          this.drawerToggleAttribute &&
+          e.target.hasAttribute(this.drawerToggleAttribute);
 
         if (isTargetToggleElement) {
           this.togglePanel();
