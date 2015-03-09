@@ -334,8 +334,13 @@ To position the drawer to the right, add `rightDrawer` attribute.
       computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
         var style = '';
 
-        style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';';
-        style += 'right:' + (rightDrawer ? (narrow ? '' : drawerWidth) : '') + ';';
+        style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';'
+
+        if (rightDrawer) {
+          style += 'right:' + (narrow ? '' : drawerWidth) + ';';
+        } else {
+          style += 'right:;'
+        }
 
         return style;
       },
