@@ -152,7 +152,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       properties: {
 
         coreSelectorClass: {
-          computed: 'calcCoreSelectorClass(narrow, transition, dragging, rightDrawer)'
+          computed: 'computeCoreSelectorClass(narrow, transition, dragging, rightDrawer)'
         },
 
         /**
@@ -195,7 +195,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         },
 
         drawerStyle: {
-          computed: 'calcDrawerStyle(drawerWidth)'
+          computed: 'computeDrawerStyle(drawerWidth)'
         },
 
         /**
@@ -230,11 +230,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
         },
 
         mainStyle: {
-          computed: 'calcMainStyle(narrow, rightDrawer, drawerWidth)'
+          computed: 'computeMainStyle(narrow, rightDrawer, drawerWidth)'
         },
 
         mediaQuery: {
-          computed: 'calcMediaQuery(forceNarrow, responsiveWidth)'
+          computed: 'computeMediaQuery(forceNarrow, responsiveWidth)'
         },
 
         /**
@@ -293,7 +293,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         },
 
         swipeOverlayClass: {
-          computed: 'calcSwipeOverlayClass(narrow, disableEdgeSwipe)'
+          computed: 'computeSwipeOverlayClass(narrow, disableEdgeSwipe)'
         },
 
         // The attribute on elements that should toggle the drawer on tap,
@@ -307,7 +307,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       },
 
-      calcCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
+      computeCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
         return classNames({
           dragging: dragging,
           'narrow-layout': narrow,
@@ -316,11 +316,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
         });
       },
 
-      calcDrawerStyle: function(drawerWidth) {
+      computeDrawerStyle: function(drawerWidth) {
         return 'width:' + drawerWidth + ';';
       },
 
-      calcMainStyle: function(narrow, rightDrawer, drawerWidth) {
+      computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
         var style = '';
 
         style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';';
@@ -329,11 +329,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
         return style;
       },
 
-      calcMediaQuery: function(forceNarrow, responsiveWidth) {
+      computeMediaQuery: function(forceNarrow, responsiveWidth) {
         return forceNarrow ? '' : '(max-width: ' + responsiveWidth + ')';
       },
 
-      calcSwipeOverlayClass: function(narrow, disableEdgeSwipe) {
+      computeSwipeOverlayClass: function(narrow, disableEdgeSwipe) {
         return classNames({
           hidden: !narrow || disableEdgeSwipe
         });
