@@ -37,6 +37,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-right: 1px solid #ccc;
       }
 
+      core-drawer-panel[right-drawer] #drawer {
+        border-left: 1px solid #ccc;
+        border-right: none;
+      }
+
       #main {
         background-color: #4F7DC9;
       }
@@ -54,13 +59,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <body>
 
-    <core-drawer-panel>
+    <core-drawer-panel id="coreDrawerPanel">
       <div drawer></div>
 
       <div main>
-        <button core-drawer-toggle>toggle drawer</button>
+        <div>
+          <button onclick="flipDrawer()">flip drawer</button>
+        <div>
+          <button core-drawer-toggle>toggle drawer</button>
+        </div>
       </div>
     </core-drawer-panel>
+
+    <script>
+      (function(global) {
+
+        'use strict';
+
+        var DRAWER_ATTR = 'right-drawer';
+
+        var cdp = document.getElementById('coreDrawerPanel');
+
+        global.flipDrawer = function() {
+          if (cdp.hasAttribute(DRAWER_ATTR)) {
+            cdp.removeAttribute(DRAWER_ATTR);
+          } else {
+            cdp.setAttribute(DRAWER_ATTR, '');
+          }
+        }
+
+      }(this));
+    </script>
 
   </body>
 </html>
