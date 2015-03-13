@@ -33,22 +33,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
 
-      core-drawer-panel #drawer,
+      core-drawer-panel #drawer {
+        background-color: #B99588;
+        border-right: 1px solid #ccc;
+      }
       core-drawer-panel::shadow #drawer {
         background-color: #B99588;
         border-right: 1px solid #ccc;
       }
 
-      core-drawer-panel[right-drawer] #drawer,
+      core-drawer-panel[right-drawer] #drawer {
+        border-left: 1px solid #ccc;
+        border-right: none;
+      }
       core-drawer-panel[right-drawer]::shadow #drawer {
         border-left: 1px solid #ccc;
         border-right: none;
       }
 
-      core-drawer-panel #main,
-      core-drawer-panel::shadow #main {
-        background-color: #4F7DC9;
-      }
+      core-drawer-panel #main  { background-color: #4F7DC9; }
+      core-drawer-panel::shadow #main { background-color: #4F7DC9; }
 
       button {
         width: 160px;
