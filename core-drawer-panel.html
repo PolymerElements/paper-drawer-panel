@@ -243,7 +243,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         on-core-activate="onSelect"
         selected="[[selected]]">
 
-      <div id="main" style="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
+      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
         <content select="[main]"></content>
         <div id="scrim"></div>
         <div id="edgeSwipeOverlay"
