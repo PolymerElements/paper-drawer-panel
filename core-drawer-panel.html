@@ -232,21 +232,26 @@ To position the drawer to the right, add `rightDrawer` attribute.
   </style>
 
   <template>
-    <core-media-query query="[[mediaQuery]]" on-query-matches-changed="onQueryMatchesChanged">
+    <core-media-query
+        on-query-matches-changed="onQueryMatchesChanged"
+        query="[[_computeMediaQuery(forceNarrow, responsiveWidth)]]">
     </core-media-query>
 
-    <core-selector class-name="[[coreSelectorClass]]"
+    <core-selector
         attr-for-selected="id"
+        class$="[[_computeCoreSelectorClass(narrow, transition, dragging, rightDrawer)]]"
         on-core-activate="onSelect"
         selected="[[selected]]">
 
-      <div id="main" style="[[mainStyle]]">
+      <div id="main" style="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
         <content select="[main]"></content>
         <div id="scrim"></div>
-        <div id="edgeSwipeOverlay" class-name="[[swipeOverlayClass]]"></div>
+        <div id="edgeSwipeOverlay"
+            class$="[[_computeSwipeOverlayClass(narrow, disableEdgeSwipe)]]">
+        </div>
       </div>
 
-      <div id="drawer" style="[[drawerStyle]]">
+      <div id="drawer" style$="[[_computeDrawerStyle(drawerWidth)]]">
         <content select="[drawer]"></content>
       </div>
 
@@ -299,10 +304,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       properties: {
 
-        coreSelectorClass: {
-          computed: 'computeCoreSelectorClass(narrow, transition, dragging, rightDrawer)'
-        },
-
         /**
          * The panel to be selected when `core-drawer-panel` changes to narrow
          * layout.
@@ -337,10 +338,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
         // Whether the user is dragging the drawer interactively.
         dragging: {
           value: false
-        },
-
-        drawerStyle: {
-          computed: 'computeDrawerStyle(drawerWidth)'
         },
 
         /**
@@ -386,14 +383,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
           value: function() {
             return 'willChange' in this.style;
           }
-        },
-
-        mainStyle: {
-          computed: 'computeMainStyle(narrow, rightDrawer, drawerWidth)'
-        },
-
-        mediaQuery: {
-          computed: 'computeMediaQuery(forceNarrow, responsiveWidth)'
         },
 
         /**
@@ -451,10 +440,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
           value: null
         },
 
-        swipeOverlayClass: {
-          computed: 'computeSwipeOverlayClass(narrow, disableEdgeSwipe)'
-        },
-
         // The attribute on elements that should toggle the drawer on tap,
         // also elements will automatically be hidden in wide layout.
         drawerToggleAttribute: {
@@ -466,7 +451,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       },
 
-      computeCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
+      _computeCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
         return classNames({
           dragging: dragging,
           'narrow-layout': narrow,
@@ -475,11 +460,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
         });
       },
 
-      computeDrawerStyle: function(drawerWidth) {
+      _computeDrawerStyle: function(drawerWidth) {
         return 'width:' + drawerWidth + ';';
       },
 
-      computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
+      _computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
         var style = '';
 
         style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';'
@@ -493,11 +478,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
         return style;
       },
 
-      computeMediaQuery: function(forceNarrow, responsiveWidth) {
+      _computeMediaQuery: function(forceNarrow, responsiveWidth) {
         return forceNarrow ? '' : '(max-width: ' + responsiveWidth + ')';
       },
 
-      computeSwipeOverlayClass: function(narrow, disableEdgeSwipe) {
+      _computeSwipeOverlayClass: function(narrow, disableEdgeSwipe) {
         return classNames({
           hidden: !narrow || disableEdgeSwipe
         });
