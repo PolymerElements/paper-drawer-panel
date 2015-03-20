@@ -247,7 +247,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         <content select="[main]"></content>
         <div id="scrim"></div>
         <div id="edgeSwipeOverlay"
-            class$="[[_computeSwipeOverlayClass(narrow, disableEdgeSwipe)]]">
+            hidden$="[[_computeSwipeOverlayHidden(narrow, disableEdgeSwipe)]]">
         </div>
       </div>
 
@@ -482,10 +482,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
         return forceNarrow ? '' : '(max-width: ' + responsiveWidth + ')';
       },
 
-      _computeSwipeOverlayClass: function(narrow, disableEdgeSwipe) {
-        return classNames({
-          hidden: !narrow || disableEdgeSwipe
-        });
+      _computeSwipeOverlayHidden: function(narrow, disableEdgeSwipe) {
+        return !narrow || disableEdgeSwipe;
       },
 
       listeners: {
