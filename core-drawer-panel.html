@@ -247,7 +247,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         <content select="[main]"></content>
         <div id="scrim"></div>
         <div id="edgeSwipeOverlay"
-            class$="[[_computeSwipeOverlayClass(narrow, disableEdgeSwipe)]]">
+            hidden$="[[_computeSwipeOverlayHidden(narrow, disableEdgeSwipe)]]">
         </div>
       </div>
 
@@ -355,7 +355,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         // How many pixels on the side of the screen are sensitive to edge
         // swipes and peek.
         edgeSwipeSensitivity: {
-          value: 15
+          value: 30
         },
 
         /**
@@ -440,15 +440,37 @@ To position the drawer to the right, add `rightDrawer` attribute.
           value: null
         },
 
-        // The attribute on elements that should toggle the drawer on tap,
-        // also elements will automatically be hidden in wide layout.
+        /**
+         * The attribute on elements that should toggle the drawer on tap, also elements will
+         * automatically be hidden in wide layout.
+         */
         drawerToggleAttribute: {
           value: 'core-drawer-toggle'
         },
 
-        // Whether the transition is enabled.
-        transition: false
+        /**
+         * Whether the transition is enabled.
+         */
+        transition: false,
 
+        /**
+         * Starting X coordinate of a tracking gesture. It is non-null only between trackStart and
+         * trackEnd events.
+         */
+        _startX: {
+          value: null
+        }
+
+      },
+
+      listeners: {
+        click: 'onClick',
+        track: 'onTrack'
+
+        // TODO: Implement tap handlers when taps are supported.
+        //
+        // down: 'downHandler',
+        // up: 'upHandler'
       },
 
       _computeCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
@@ -482,19 +504,22 @@ To position the drawer to the right, add `rightDrawer` attribute.
         return forceNarrow ? '' : '(max-width: ' + responsiveWidth + ')';
       },
 
-      _computeSwipeOverlayClass: function(narrow, disableEdgeSwipe) {
-        return classNames({
-          hidden: !narrow || disableEdgeSwipe
-        });
+      _computeSwipeOverlayHidden: function(narrow, disableEdgeSwipe) {
+        return !narrow || disableEdgeSwipe;
       },
 
-      listeners: {
-        click: 'onClick',
-        down: 'downHandler',
-        trackstart: 'trackStart',
-        trackx: 'trackx',
-        trackend: 'trackEnd',
-        up: 'upHandler'
+      onTrack: function(event) {
+        switch (event.detail.state) {
+          case 'end':
+            this.trackEnd(event);
+            break;
+          case 'move':
+            this.trackX(event);
+            break;
+          case 'start':
+            this.trackStart(event);
+            break;
+        }
       },
 
       ready: function() {
@@ -575,15 +600,17 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      downHandler: function(e) {
-        if (!this.dragging && this.isMainSelected() && this.isEdgeTouch(e)) {
-          this.startEdgePeek();
-        }
-      },
-
-      upHandler: function(e) {
-        this.stopEdgePeek();
-      },
+      // TODO: Implement tap handlers when taps are supported.
+      //
+      // downHandler: function(e) {
+      //   if (!this.dragging && this.isMainSelected() && this.isEdgeTouch(e)) {
+      //     this.startEdgePeek();
+      //   }
+      // },
+      //
+      // upHandler: function(e) {
+      //   this.stopEdgePeek();
+      // },
 
       onClick: function(e) {
         var isTargetToggleElement = e.target &&
@@ -595,25 +622,31 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      isEdgeTouch: function(e) {
+      isEdgeTouch: function(event) {
+        var x = event.detail.x;
+
         return !this.disableEdgeSwipe && this.swipeAllowed() &&
           (this.rightDrawer ?
-            e.pageX >= this.offsetWidth - this.edgeSwipeSensitivity :
-            e.pageX <= this.edgeSwipeSensitivity);
+            x >= this.offsetWidth - this.edgeSwipeSensitivity :
+            x <= this.edgeSwipeSensitivity);
       },
 
-      trackStart : function(e) {
+      trackStart: function(event) {
         if (this.swipeAllowed()) {
           this.dragging = true;
+          this._startX = event.detail.x;
 
           if (this.isMainSelected()) {
-            this.dragging = this.peeking || this.isEdgeTouch(e);
+            this.dragging = this.peeking || this.isEdgeTouch(event);
           }
 
           if (this.dragging) {
             this.width = this.$.drawer.offsetWidth;
             this.transition = false;
-            e.preventTap();
+
+            // TODO: Re-enable when tap gestures are implemented.
+            //
+            // e.preventTap();
           }
         }
       },
@@ -628,28 +661,36 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      trackx: function(e) {
+      trackX: function(event) {
+        var dx = event.detail.x - this._startX;
+
         if (this.dragging) {
           if (this.peeking) {
-            if (Math.abs(e.dx) <= this.edgeSwipeSensitivity) {
-              return; // Ignore trackx until we move past the edge peek.
+            if (Math.abs(dx) <= this.edgeSwipeSensitivity) {
+              // Ignore trackx until we move past the edge peek.
+              return;
             }
+
             this.peeking = false;
           }
-          this.moveDrawer(this.translateXForDeltaX(e.dx));
+
+          this.moveDrawer(this.translateXForDeltaX(dx));
         }
       },
 
-      trackEnd: function(e) {
+      trackEnd: function(event) {
         if (this.dragging) {
+          var xDirection = (event.detail.x - this._startX) > 0;
+
           this.dragging = false;
+          this._startX = null;
           this.transition = true;
           this.moveDrawer(null);
 
           if (this.rightDrawer) {
-            this[(e.xDirection > 0) ? 'closeDrawer' : 'openDrawer']();
+            this[(xDirection > 0) ? 'closeDrawer' : 'openDrawer']();
           } else {
-            this[(e.xDirection > 0) ? 'openDrawer' : 'closeDrawer']();
+            this[(xDirection > 0) ? 'openDrawer' : 'closeDrawer']();
           }
         }
       },
