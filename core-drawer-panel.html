@@ -440,15 +440,37 @@ To position the drawer to the right, add `rightDrawer` attribute.
           value: null
         },
 
-        // The attribute on elements that should toggle the drawer on tap,
-        // also elements will automatically be hidden in wide layout.
+        /**
+         * The attribute on elements that should toggle the drawer on tap, also elements will
+         * automatically be hidden in wide layout.
+         */
         drawerToggleAttribute: {
           value: 'core-drawer-toggle'
         },
 
-        // Whether the transition is enabled.
-        transition: false
+        /**
+         * Whether the transition is enabled.
+         */
+        transition: false,
 
+        /**
+         * Starting X coordinate of a tracking gesture. It is non-null only between trackStart and
+         * trackEnd events.
+         */
+        _startX: {
+          value: null
+        }
+
+      },
+
+      listeners: {
+        click: 'onClick',
+        track: 'onTrack'
+
+        // TODO: Implement tap handlers when taps are supported.
+        //
+        // down: 'downHandler',
+        // up: 'upHandler'
       },
 
       _computeCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
@@ -484,16 +506,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
       _computeSwipeOverlayHidden: function(narrow, disableEdgeSwipe) {
         return !narrow || disableEdgeSwipe;
-      },
-
-      listeners: {
-        click: 'onClick',
-        track: 'onTrack'
-
-        // TODO: Implement tap handlers when taps are supported.
-        //
-        // down: 'downHandler',
-        // up: 'upHandler'
       },
 
       onTrack: function(event) {
