@@ -7,10 +7,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+
 <!--
-`core-drawer-panel` contains a drawer panel and a main panel.  The drawer
+`paper-drawer-panel` contains a drawer panel and a main panel.  The drawer
 and the main panel are side-by-side with drawer on the left.  When the browser
-window size is smaller than the `responsiveWidth`, `core-drawer-panel`
+window size is smaller than the `responsiveWidth`, `paper-drawer-panel`
 changes to narrow layout.  In narrow layout, the drawer will be stacked on top
 of the main panel.  The drawer will slide in/out to hide/reveal the main
 panel.
@@ -20,67 +24,62 @@ Use the attribute `drawer` to indicate that the element is the drawer panel and
 
 Example:
 
-    <core-drawer-panel>
+    <paper-drawer-panel>
       <div drawer> Drawer panel... </div>
       <div main> Main panel... </div>
-    </core-drawer-panel>
+    </paper-drawer-panel>
 
 The drawer and the main panels are not scrollable.  You can set CSS overflow
-property on the elements to make them scrollable or use `core-header-panel`.
+property on the elements to make them scrollable or use `paper-header-panel`.
 
 Example:
 
-    <core-drawer-panel>
-      <core-header-panel drawer>
-        <core-toolbar></core-toolbar>
+    <paper-drawer-panel>
+      <paper-header-panel drawer>
+        <paper-toolbar></paper-toolbar>
         <div> Drawer content... </div>
-      </core-header-panel>
-      <core-header-panel main>
-        <core-toolbar></core-toolbar>
+      </paper-header-panel>
+      <paper-header-panel main>
+        <paper-toolbar></paper-toolbar>
         <div> Main content... </div>
-      </core-header-panel>
-    </core-drawer-panel>
+      </paper-header-panel>
+    </paper-drawer-panel>
 
 An element that should toggle the drawer will automatically do so if it's
-given the `core-drawer-toggle` attribute.  Also this element will automatically
+given the `paper-drawer-toggle` attribute.  Also this element will automatically
 be hidden in wide layout.
 
 Example:
 
-    <core-drawer-panel>
-      <core-header-panel drawer>
-        <core-toolbar>
+    <paper-drawer-panel>
+      <paper-header-panel drawer>
+        <paper-toolbar>
           <div>Application</div>
-        </core-toolbar>
+        </paper-toolbar>
         <div> Drawer content... </div>
-      </core-header-panel>
-      <core-header-panel main>
-        <core-toolbar>
-          <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
+      </paper-header-panel>
+      <paper-header-panel main>
+        <paper-toolbar>
+          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
           <div>Title</div>
-        </core-toolbar>
+        </paper-toolbar>
         <div> Main content... </div>
-      </core-header-panel>
-    </core-drawer-panel>
+      </paper-header-panel>
+    </paper-drawer-panel>
 
 To position the drawer to the right, add `rightDrawer` attribute.
 
-    <core-drawer-panel rightDrawer>
+    <paper-drawer-panel rightDrawer>
       <div drawer> Drawer panel... </div>
       <div main> Main panel... </div>
-    </core-drawer-panel>
+    </paper-drawer-panel>
 
-@group Polymer Core Elements
-@element core-drawer-panel
+@group Polymer Elements
+@element paper-drawer-panel
 @homepage github.io
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-
-<link rel="import" href="../core-media-query/core-media-query.html">
-<link rel="import" href="../core-selector/core-selector.html">
-
-<dom-module id="core-drawer-panel">
+<dom-module id="paper-drawer-panel">
 
   <style>
     :host {
@@ -93,7 +92,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       overflow: hidden;
     }
 
-    core-selector > #drawer {
+    iron-selector > #drawer {
       position: absolute;
       top: 0;
       left: 0;
@@ -116,7 +115,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       right: 0;
     }
 
-    core-drawer-panel #drawer > * {
+    paper-drawer-panel #drawer > * {
       position: absolute;
       top: 0;
       left: 0;
@@ -126,7 +125,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       -moz-box-sizing: border-box;
     }
 
-    core-selector > #main {
+    iron-selector > #main {
       position: absolute;
       top: 0;
       right: 0;
@@ -177,11 +176,11 @@ To position the drawer to the right, add `rightDrawer` attribute.
     /*
     narrow layout
     */
-    .narrow-layout > #drawer.core-selected {
+    .narrow-layout > #drawer.iron-selected {
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
     }
 
-    .right-drawer.narrow-layout > #drawer.core-selected {
+    .right-drawer.narrow-layout > #drawer.iron-selected {
       box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15);
     }
 
@@ -189,12 +188,12 @@ To position the drawer to the right, add `rightDrawer` attribute.
       border: 0;
     }
 
-    .narrow-layout > #drawer:not(.core-selected) {
+    .narrow-layout > #drawer:not(.iron-selected) {
       -webkit-transform: translateX(-100%);
       transform: translateX(-100%);
     }
 
-    .right-drawer.narrow-layout > #drawer:not(.core-selected) {
+    .right-drawer.narrow-layout > #drawer:not(.iron-selected) {
       left: auto;
       -webkit-transform: translateX(100%);
       transform: translateX(100%);
@@ -211,7 +210,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       padding: 0;
     }
 
-    .narrow-layout > #main:not(.core-selected) > #scrim,
+    .narrow-layout > #main:not(.iron-selected) > #scrim,
     .dragging #scrim {
       visibility: visible;
       opacity: 1;
@@ -226,21 +225,21 @@ To position the drawer to the right, add `rightDrawer` attribute.
       -moz-box-sizing: border-box;
     }
 
-    core-selector:not(.narrow-layout) #main ::content [core-drawer-toggle] {
+    iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
       display: none;
     }
   </style>
 
   <template>
-    <core-media-query
+    <iron-media-query
         on-query-matches-changed="onQueryMatchesChanged"
         query="[[_computeMediaQuery(forceNarrow, responsiveWidth)]]">
-    </core-media-query>
+    </iron-media-query>
 
-    <core-selector
+    <iron-selector
         attr-for-selected="id"
-        class$="[[_computeCoreSelectorClass(narrow, transition, dragging, rightDrawer)]]"
-        on-core-activate="onSelect"
+        class$="[[_computeIronSelectorClass(narrow, transition, dragging, rightDrawer)]]"
+        on-iron-activate="onSelect"
         selected="[[selected]]">
 
       <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
@@ -255,7 +254,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         <content select="[drawer]"></content>
       </div>
 
-    </core-selector>
+    </iron-selector>
   </template>
 
 </dom-module>
@@ -279,12 +278,12 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
     Polymer({
 
-      is: 'core-drawer-panel',
+      is: 'paper-drawer-panel',
 
       /**
        * Fired when the narrow layout changes.
        *
-       * @event core-responsive-change
+       * @event paper-responsive-change
        * @param {Object} detail
        * @param {boolean} detail.narrow true if the panel is in narrow layout.
        */
@@ -296,7 +295,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
        * This event is fired both when a panel is selected and deselected.
        * The `isSelected` detail property contains the selection state.
        *
-       * @event core-select
+       * @event paper-select
        * @param {Object} detail
        * @param {boolean} detail.isSelected true for selection and false for deselection
        * @param {Object} detail.item the panel that the event refers to
@@ -305,7 +304,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
       properties: {
 
         /**
-         * The panel to be selected when `core-drawer-panel` changes to narrow
+         * The panel to be selected when `paper-drawer-panel` changes to narrow
          * layout.
          *
          * @attribute defaultSelected
@@ -445,7 +444,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
          * automatically be hidden in wide layout.
          */
         drawerToggleAttribute: {
-          value: 'core-drawer-toggle'
+          value: 'paper-drawer-toggle'
         },
 
         /**
@@ -473,7 +472,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         // up: 'upHandler'
       },
 
-      _computeCoreSelectorClass: function(narrow, transition, dragging, rightDrawer) {
+      _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer) {
         return classNames({
           dragging: dragging,
           'narrow-layout': narrow,
@@ -567,7 +566,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
 
         this.setAttribute('touch-action', this.swipeAllowed() ? 'pan-y' : '');
-        this.fire('core-responsive-change', {narrow: this.narrow});
+        this.fire('paper-responsive-change', {narrow: this.narrow});
       },
 
       onQueryMatchesChanged: function(e) {

@@ -9,50 +9,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
   <head>
-    <title>core-drawer-panel</title>
+    <title>paper-drawer-panel demo</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../paper-styles/demo.css">
+    <link rel="import" href="../../paper-styles/default-theme.html">
 
-    <link rel="import" href="../core-drawer-panel.html">
+    <link rel="import" href="../paper-drawer-panel.html">
 
     <style>
-
-      html,
-      body {
-        height: 100%;
-      }
-
-      body {
-        font-family: sans-serif;
-        color: #FFF;
-        margin: 0;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-      }
-
-      core-drawer-panel #drawer {
-        background-color: #B99588;
-        border-right: 1px solid #ccc;
-      }
-      core-drawer-panel::shadow #drawer {
-        background-color: #B99588;
+      /* TODO: these colors should come from paper-styles/default-theme.html
+      once Polymer/polymer#1415 is fixed. */
+      paper-drawer-panel #drawer {
+        background-color: #3f51b5;
         border-right: 1px solid #ccc;
       }
 
-      core-drawer-panel[right-drawer] #drawer {
+      paper-drawer-panel::shadow #drawer {
+        background-color: #3f51b5;
+        border-right: 1px solid #ccc;
+      }
+
+      paper-drawer-panel[right-drawer] #drawer {
         border-left: 1px solid #ccc;
         border-right: none;
       }
-      core-drawer-panel[right-drawer]::shadow #drawer {
+      paper-drawer-panel[right-drawer]::shadow #drawer {
         border-left: 1px solid #ccc;
         border-right: none;
       }
 
-      core-drawer-panel #main  { background-color: #4F7DC9; }
-      core-drawer-panel::shadow #main { background-color: #4F7DC9; }
+      paper-drawer-panel #main  { background-color: #c5cae9 }
+      paper-drawer-panel::shadow #main { background-color: #c5cae9; }
 
       button {
         width: 160px;
@@ -67,17 +59,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <body>
 
-    <core-drawer-panel id="coreDrawerPanel">
+    <paper-drawer-panel id="coreDrawerPanel">
       <div drawer></div>
       <div main>
         <div>
           <button onclick="flipDrawer()">flip drawer</button>
         </div>
         <div>
-          <button core-drawer-toggle>toggle drawer</button>
+          <button paper-drawer-toggle>toggle drawer</button>
         </div>
       </div>
-    </core-drawer-panel>
+    </paper-drawer-panel>
 
     <script>
       (function(global) {

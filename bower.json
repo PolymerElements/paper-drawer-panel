@@ -1,21 +1,30 @@
 {
-  "name": "core-drawer-panel",
-  "private": true,
+  "name": "paper-drawer-panel",
+  "version": "0.8.0",
   "authors": [
     "The Polymer Authors"
   ],
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer"
+  ],
+  "main": "index.html",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-drawer-panel.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/PolymerElements/paper-drawer-panel",
   "dependencies": {
-    "core-selector": "Polymer/core-selector#0.8-preview",
-    "core-media-query": "Polymer/core-media-query#0.8-preview",
-    "polymer": "Polymer/polymer#0.8-preview"
+    "iron-selector": "PolymerElements/iron-selector#^0.8.0",
+    "iron-media-query": "PolymerElements/iron-media-query#^0.8.0",
+    "polymer": "Polymer/polymer#v0.8.0-rc.4"
   },
   "devDependencies": {
-    "webcomponentsjs": "~0.5.5",
-    "core-component-page": "Polymer/core-component-page#~0.5.5"
-  },
-  "main": "core-drawer-panel.html",
-  "repo": {
-    "type": "git",
-    "url": "git://github.com/Polymer/core-drawer-panel.git"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.6.0",
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.8.0",
+    "paper-styles": "PolymerElements/paper-styles#^0.8.0"
   }
 }
