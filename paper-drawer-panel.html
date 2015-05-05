@@ -614,7 +614,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       onClick: function(e) {
         var isTargetToggleElement = e.target &&
           this.drawerToggleAttribute &&
-          e.target.hasAttribute(this.drawerToggleAttribute);
+          (e.target.hasAttribute(this.drawerToggleAttribute) ||
+            (e.srcElement.dataHost && e.srcElement.dataHost.hasAttribute(this.drawerToggleAttribute) ) );
 
         if (isTargetToggleElement) {
           this.togglePanel();
