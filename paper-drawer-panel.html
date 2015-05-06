@@ -476,11 +476,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       listeners: {
         click: 'onClick',
         track: 'onTrack'
-
-        // TODO: Implement tap handlers when taps are supported.
-        //
-        // down: 'downHandler',
-        // up: 'upHandler'
+        down: 'downHandler',
+        up: 'upHandler'
       },
 
       _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer) {
@@ -610,17 +607,15 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      // TODO: Implement tap handlers when taps are supported.
-      //
-      // downHandler: function(e) {
-      //   if (!this.dragging && this.isMainSelected() && this.isEdgeTouch(e)) {
-      //     this.startEdgePeek();
-      //   }
-      // },
-      //
-      // upHandler: function(e) {
-      //   this.stopEdgePeek();
-      // },
+      downHandler: function(e) {
+        if (!this.dragging && this.isMainSelected() && this.isEdgeTouch(e)) {
+          this.startEdgePeek();
+        }
+      },
+
+      upHandler: function(e) {
+        this.stopEdgePeek();
+      },
 
       onClick: function(e) {
         var isTargetToggleElement = e.target &&
