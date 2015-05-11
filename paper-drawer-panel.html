@@ -720,8 +720,10 @@ To position the drawer to the right, add `rightDrawer` attribute.
       },
 
       onSelect: function(e) {
-        e.preventDefault();
-        this.selected = e.detail.selected;
+	if(e.detail.item.classList.contains('paper-drawer-panel')) {
+	        e.preventDefault();
+        	this.selected = e.detail.selected;
+	}
       }
 
     });
