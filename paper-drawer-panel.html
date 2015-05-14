@@ -100,6 +100,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       will-change: transform;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
+
+      @apply(--paper-drawer-panel-drawer-container);
     }
 
     .transition > #drawer {
@@ -130,6 +132,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
       top: 0;
       right: 0;
       bottom: 0;
+
+      @apply(--paper-drawer-panel-main-container);
     }
 
     .transition > #main {
@@ -154,10 +158,10 @@ To position the drawer to the right, add `rightDrawer` attribute.
       right: 0;
       bottom: 0;
       left: 0;
-      background-color: rgba(0, 0, 0, 0.3);
       visibility: hidden;
       opacity: 0;
       transition: opacity ease-in-out 0.38s, visibility ease-in-out 0.38s;
+      background-color: rgba(0, 0, 0, 0.3);
     }
 
     #edgeSwipeOverlay {
@@ -173,9 +177,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
       left: auto;
     }
 
-    /*
-    narrow layout
-    */
     .narrow-layout > #drawer.iron-selected {
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
     }
@@ -211,9 +212,9 @@ To position the drawer to the right, add `rightDrawer` attribute.
     }
 
     .narrow-layout > #main:not(.iron-selected) > #scrim,
-    .dragging #scrim {
+    .dragging > #main > #scrim {
       visibility: visible;
-      opacity: 1;
+      opacity: var(--paper-drawer-panel-scrim-opacity, 1);
     }
 
     .narrow-layout > #main > * {
@@ -232,7 +233,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
 
   <template>
     <iron-media-query
-        on-query-matches-changed="onQueryMatchesChanged"
+        on-query-matches-changed="_onQueryMatchesChanged"
         query="[[_computeMediaQuery(forceNarrow, responsiveWidth)]]">
     </iron-media-query>
 
@@ -245,9 +246,6 @@ To position the drawer to the right, add `rightDrawer` attribute.
       <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
         <content select="[main]"></content>
         <div id="scrim" on-tap="closeDrawer"></div>
-        <div id="edgeSwipeOverlay"
-            hidden$="[[_computeSwipeOverlayHidden(narrow, disableEdgeSwipe)]]">
-        </div>
       </div>
 
       <div id="drawer" style$="[[_computeDrawerStyle(drawerWidth)]]">
@@ -264,6 +262,10 @@ To position the drawer to the right, add `rightDrawer` attribute.
   (function() {
 
     'use strict';
+
+   // this is the only `paper-drawer-panel` in
+   // the whole app that can be in `dragging` state
+    var sharedPanel = null;
 
     function classNames(obj) {
       var classNames = [];
@@ -471,6 +473,43 @@ To position the drawer to the right, add `rightDrawer` attribute.
         up: '_upHandler'
       },
 
+      /**
+       * Toggles the panel open and closed.
+       *
+       * @method togglePanel
+       */
+      togglePanel: function() {
+        if (this._isMainSelected()) {
+          this.openDrawer();
+        } else {
+          this.closeDrawer();
+        }
+      },
+
+      /**
+       * Opens the drawer.
+       *
+       * @method openDrawer
+       */
+      openDrawer: function() {
+        this.selected = 'drawer';
+      },
+
+      /**
+       * Closes the drawer.
+       *
+       * @method closeDrawer
+       */
+      closeDrawer: function() {
+        this.selected = 'main';
+      },
+
+      ready: function() {
+        // Avoid transition at the beginning e.g. page loads and enable
+        // transitions only after the element is rendered and ready.
+        this.transition = true;
+      },
+
       _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer) {
         return classNames({
           dragging: dragging,
@@ -506,55 +545,22 @@ To position the drawer to the right, add `rightDrawer` attribute.
         return !narrow || disableEdgeSwipe;
       },
 
-      _onTrack: function(event) {
-        switch (event.detail.state) {
-          case 'end':
-            this._trackEnd(event);
+      _onTrack: function(e) {
+        if (sharedPanel && this !== sharedPanel) {
+          return;
+        }
+        switch (e.detail.state) {
+          case 'start':
+            this._trackStart(e);
             break;
           case 'track':
-            this._trackX(event);
+            this._trackX(e);
             break;
-          case 'start':
-            this._trackStart(event);
+          case 'end':
+            this._trackEnd(e);
             break;
         }
-      },
 
-      ready: function() {
-        // Avoid transition at the beginning e.g. page loads and enable
-        // transitions only after the element is rendered and ready.
-        this.transition = true;
-      },
-
-      /**
-       * Toggles the panel open and closed.
-       *
-       * @method togglePanel
-       */
-      togglePanel: function() {
-        if (this._isMainSelected()) {
-          this.openDrawer();
-        } else {
-          this.closeDrawer();
-        }
-      },
-
-      /**
-       * Opens the drawer.
-       *
-       * @method openDrawer
-       */
-      openDrawer: function() {
-        this.selected = 'drawer';
-      },
-
-      /**
-       * Closes the drawer.
-       *
-       * @method closeDrawer
-       */
-      closeDrawer: function() {
-        this.selected = 'main';
       },
 
       _responsiveChange: function(narrow) {
@@ -568,7 +574,7 @@ To position the drawer to the right, add `rightDrawer` attribute.
         this.fire('paper-responsive-change', {narrow: this.narrow});
       },
 
-      onQueryMatchesChanged: function(e) {
+      _onQueryMatchesChanged: function(e) {
         this._responsiveChange(e.detail.value);
       },
 
@@ -599,13 +605,17 @@ To position the drawer to the right, add `rightDrawer` attribute.
       },
 
       _downHandler: function(e) {
-        if (!this.dragging && this._isMainSelected() && this._isEdgeTouch(e)) {
+        if (!this.dragging && this._isMainSelected() && this._isEdgeTouch(e) && !sharedPanel) {
           this._startEdgePeek();
+          // grab this panel
+          sharedPanel = this;
         }
       },
 
       _upHandler: function(e) {
         this._stopEdgePeek();
+        // release the panel
+        sharedPanel = null;
       },
 
       _onTap: function(e) {
@@ -619,8 +629,8 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      _isEdgeTouch: function(event) {
-        var x = event.detail.x;
+      _isEdgeTouch: function(e) {
+        var x = e.detail.x;
 
         return !this.disableEdgeSwipe && this._swipeAllowed() &&
           (this.rightDrawer ?
@@ -628,8 +638,9 @@ To position the drawer to the right, add `rightDrawer` attribute.
             x <= this.edgeSwipeSensitivity);
       },
 
-      _trackStart: function(event) {
+      _trackStart: function(e) {
         if (this._swipeAllowed()) {
+          sharedPanel = this;
           this.dragging = true;
 
           if (this._isMainSelected()) {
@@ -653,16 +664,15 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      _trackX: function(event) {
-        var dx = event.detail.dx;
-
+      _trackX: function(e) {
         if (this.dragging) {
+          var dx = e.detail.dx;
+
           if (this.peeking) {
             if (Math.abs(dx) <= this.edgeSwipeSensitivity) {
               // Ignore trackx until we move past the edge peek.
               return;
             }
-
             this.peeking = false;
           }
 
@@ -670,12 +680,13 @@ To position the drawer to the right, add `rightDrawer` attribute.
         }
       },
 
-      _trackEnd: function(event) {
+      _trackEnd: function(e) {
         if (this.dragging) {
-          var xDirection = event.detail.dx > 0;
+          var xDirection = e.detail.dx > 0;
 
           this.dragging = false;
           this.transition = true;
+          sharedPanel = null;
           this._moveDrawer(null);
 
           if (this.rightDrawer) {
