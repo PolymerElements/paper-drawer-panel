@@ -1,13 +1,18 @@
 {
   "name": "paper-drawer-panel",
   "version": "0.9.3",
+  "description": "A responsive drawer panel",
   "authors": [
     "The Polymer Authors"
   ],
   "keywords": [
     "web-components",
     "web-component",
-    "polymer"
+    "polymer",
+    "paper",
+    "drawer",
+    "responsive",
+    "layout"
   ],
   "main": "index.html",
   "private": true,
@@ -20,11 +25,11 @@
   "dependencies": {
     "iron-selector": "PolymerElements/iron-selector#^0.9.0",
     "iron-media-query": "PolymerElements/iron-media-query#^0.9.0",
-    "polymer": "Polymer/polymer#v0.9.0-rc.1"
+    "polymer": "Polymer/polymer#^0.9.0"
   },
   "devDependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.6.0",
     "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
-    "paper-styles": "PolymerElements/paper-styles#^0.9.0"
+    "paper-styles": "PolymerElements/paper-styles#^0.9.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   }
 }
