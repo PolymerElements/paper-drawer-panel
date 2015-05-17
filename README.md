@@ -12,26 +12,30 @@ Use the attribute `drawer` to indicate that the element is the drawer panel and
 
 Example:
 
-    <paper-drawer-panel>
-      <div drawer> Drawer panel... </div>
-      <div main> Main panel... </div>
-    </paper-drawer-panel>
+```html
+<paper-drawer-panel>
+  <div drawer> Drawer panel... </div>
+  <div main> Main panel... </div>
+</paper-drawer-panel>
+```
 
 The drawer and the main panels are not scrollable.  You can set CSS overflow
 property on the elements to make them scrollable or use `paper-header-panel`.
 
 Example:
 
-    <paper-drawer-panel>
-      <paper-header-panel drawer>
-        <paper-toolbar></paper-toolbar>
-        <div> Drawer content... </div>
-      </paper-header-panel>
-      <paper-header-panel main>
-        <paper-toolbar></paper-toolbar>
-        <div> Main content... </div>
-      </paper-header-panel>
-    </paper-drawer-panel>
+```html
+<paper-drawer-panel>
+  <paper-header-panel drawer>
+    <paper-toolbar></paper-toolbar>
+    <div> Drawer content... </div>
+  </paper-header-panel>
+  <paper-header-panel main>
+    <paper-toolbar></paper-toolbar>
+    <div> Main content... </div>
+  </paper-header-panel>
+</paper-drawer-panel>
+```
 
 An element that should toggle the drawer will automatically do so if it's
 given the `paper-drawer-toggle` attribute.  Also this element will automatically
@@ -39,25 +43,29 @@ be hidden in wide layout.
 
 Example:
 
-    <paper-drawer-panel>
-      <paper-header-panel drawer>
-        <paper-toolbar>
-          <div>Application</div>
-        </paper-toolbar>
-        <div> Drawer content... </div>
-      </paper-header-panel>
-      <paper-header-panel main>
-        <paper-toolbar>
-          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-          <div>Title</div>
-        </paper-toolbar>
-        <div> Main content... </div>
-      </paper-header-panel>
-    </paper-drawer-panel>
+```html
+<paper-drawer-panel>
+  <paper-header-panel drawer>
+    <paper-toolbar>
+      <div>Application</div>
+    </paper-toolbar>
+    <div> Drawer content... </div>
+  </paper-header-panel>
+  <paper-header-panel main>
+    <paper-toolbar>
+      <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+      <div>Title</div>
+    </paper-toolbar>
+    <div> Main content... </div>
+  </paper-header-panel>
+</paper-drawer-panel>
+```
 
 To position the drawer to the right, add `rightDrawer` attribute.
 
-    <paper-drawer-panel rightDrawer>
-      <div drawer> Drawer panel... </div>
-      <div main> Main panel... </div>
-    </paper-drawer-panel>
+```html
+<paper-drawer-panel rightDrawer>
+  <div drawer> Drawer panel... </div>
+  <div main> Main panel... </div>
+</paper-drawer-panel>
+```
