@@ -16,45 +16,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../../paper-styles/demo.css">
-    <link rel="import" href="../../paper-styles/default-theme.html">
 
+    <link rel="import" href="../../paper-styles/paper-styles.html">
+    <link rel="stylesheet" href="../../paper-styles/demo.css">
+
+    <link rel="import" href="../../paper-button/paper-button.html">
     <link rel="import" href="../paper-drawer-panel.html">
 
-    <style>
-      /* TODO: these colors should come from paper-styles/default-theme.html
-      once Polymer/polymer#1415 is fixed. */
-      paper-drawer-panel #drawer {
-        background-color: #3f51b5;
-        border-right: 1px solid #ccc;
+    <style is="custom-style">
+      #paperDrawerPanel {
+        --paper-drawer-panel-left-drawer-container: {
+          border-right-width: 1px;
+          border-right-style: solid;
+          border-right-color: var(--google-grey-300);
+        };
+
+        --paper-drawer-panel-right-drawer-container: {
+          border-left-width: 1px;
+          border-left-style: solid;
+          border-left-color: var(--google-grey-300);
+        };
+
+        --paper-drawer-panel-main-container: {
+          background-color: var(--google-grey-100);
+        };
       }
 
-      paper-drawer-panel::shadow #drawer {
-        background-color: #3f51b5;
-        border-right: 1px solid #ccc;
-      }
-
-      paper-drawer-panel[right-drawer] #drawer {
-        border-left: 1px solid #ccc;
-        border-right: none;
-      }
-      paper-drawer-panel[right-drawer]::shadow #drawer {
-        border-left: 1px solid #ccc;
-        border-right: none;
-      }
-
-      paper-drawer-panel #main  { background-color: #c5cae9 }
-      paper-drawer-panel::shadow #main { background-color: #c5cae9; }
-
-      button {
-        width: 160px;
-        height: 40px;
-        font-size: 16px;
-        margin: 8px;
+      paper-button {
+        color: white;
+        margin: 10px;
+        background-color: var(--google-blue-700);
+        white-space: nowrap;
       }
 
     </style>
-
   </head>
 
   <body>
@@ -63,10 +58,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div drawer></div>
       <div main>
         <div>
-          <button onclick="flipDrawer()">flip drawer</button>
+          <paper-button onclick="flipDrawer()">flip drawer</paper-button>
         </div>
         <div>
-          <button paper-drawer-toggle>toggle drawer</button>
+          <paper-button paper-drawer-toggle>toggle drawer</paper-button>
         </div>
       </div>
     </paper-drawer-panel>
