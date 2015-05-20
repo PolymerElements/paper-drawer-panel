@@ -61,10 +61,10 @@ Example:
 </paper-drawer-panel>
 ```
 
-To position the drawer to the right, add `rightDrawer` attribute.
+To position the drawer to the right, add `right-drawer` attribute.
 
 ```html
-<paper-drawer-panel rightDrawer>
+<paper-drawer-panel right-drawer>
   <div drawer> Drawer panel... </div>
   <div main> Main panel... </div>
 </paper-drawer-panel>
