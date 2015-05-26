@@ -139,19 +139,19 @@ To change the drawer container when it's in the right side:
 
     'use strict';
 
-   // this is the only `paper-drawer-panel` in
+   // this would be the only `paper-drawer-panel` in
    // the whole app that can be in `dragging` state
     var sharedPanel = null;
 
     function classNames(obj) {
-      var classNames = [];
+      var classes = [];
       for (var key in obj) {
         if (obj.hasOwnProperty(key) && obj[key]) {
-          classNames.push(key);
+          classes.push(key);
         }
       }
 
-      return classNames.join(' ');
+      return classes.join(' ');
     }
 
     Polymer({
@@ -182,10 +182,6 @@ To change the drawer container when it's in the right side:
         /**
          * The panel to be selected when `paper-drawer-panel` changes to narrow
          * layout.
-         *
-         * @attribute defaultSelected
-         * @type string
-         * @default 'main'
          */
         defaultSelected: {
           type: String,
@@ -194,23 +190,23 @@ To change the drawer container when it's in the right side:
 
         /**
          * If true, swipe from the edge is disable.
-         *
-         * @attribute disableEdgeSwipe
-         * @type boolean
-         * @default false
          */
-        disableEdgeSwipe: Boolean,
+        disableEdgeSwipe: {
+          type: Boolean,
+          value: false
+        },
 
         /**
          * If true, swipe to open/close the drawer is disabled.
-         *
-         * @attribute disableSwipe
-         * @type boolean
-         * @default false
          */
-        disableSwipe: Boolean,
+        disableSwipe: {
+          type: Boolean,
+          value: false
+        },
 
-        // Whether the user is dragging the drawer interactively.
+        /**
+         * Whether the user is dragging the drawer interactively.
+         */
         dragging: {
           type: Boolean,
           value: false
@@ -218,18 +214,16 @@ To change the drawer container when it's in the right side:
 
         /**
          * Width of the drawer panel.
-         *
-         * @attribute drawerWidth
-         * @type string
-         * @default '256px'
          */
         drawerWidth: {
           type: String,
           value: '256px'
         },
 
-        // How many pixels on the side of the screen are sensitive to edge
-        // swipes and peek.
+        /**
+         * How many pixels on the side of the screen are sensitive to edge
+         * swipes and peek.
+         */
         edgeSwipeSensitivity: {
           type: Number,
           value: 30
@@ -237,10 +231,6 @@ To change the drawer container when it's in the right side:
 
         /**
          * If true, ignore `responsiveWidth` setting and force the narrow layout.
-         *
-         * @attribute forceNarrow
-         * @type boolean
-         * @default false
          */
         forceNarrow: {
           observer: 'forceNarrowChanged',
@@ -248,7 +238,9 @@ To change the drawer container when it's in the right side:
           value: false
         },
 
-        // Whether the browser has support for the transform CSS property.
+        /**
+         * Whether the browser has support for the transform CSS property.
+         */
         hasTransform: {
           type: Boolean,
           value: function() {
@@ -256,7 +248,9 @@ To change the drawer container when it's in the right side:
           }
         },
 
-        // Whether the browser has support for the will-change CSS property.
+        /**
+         * Whether the browser has support for the will-change CSS property.
+         */
         hasWillChange: {
           type: Boolean,
           value: function() {
@@ -267,10 +261,6 @@ To change the drawer container when it's in the right side:
         /**
          * Returns true if the panel is in narrow layout.  This is useful if you
          * need to show/hide elements based on the layout.
-         *
-         * @attribute narrow
-         * @type boolean
-         * @default false
          */
         narrow: {
           reflectToAttribute: true,
@@ -279,7 +269,9 @@ To change the drawer container when it's in the right side:
           notify: true
         },
 
-        // Whether the drawer is peeking out from the edge.
+        /**
+         * Whether the drawer is peeking out from the edge.
+         */
         peeking: {
           type: Boolean,
           value: false
@@ -287,10 +279,6 @@ To change the drawer container when it's in the right side:
 
         /**
          * Max-width when the panel changes to narrow layout.
-         *
-         * @attribute responsiveWidth
-         * @type string
-         * @default '640px'
          */
         responsiveWidth: {
           type: String,
@@ -299,10 +287,6 @@ To change the drawer container when it's in the right side:
 
         /**
          * If true, position the drawer to the right.
-         *
-         * @attribute rightDrawer
-         * @type boolean
-         * @default false
          */
         rightDrawer: {
           type: Boolean,
@@ -312,10 +296,6 @@ To change the drawer container when it's in the right side:
         /**
          * The panel that is being selected. `drawer` for the drawer panel and
          * `main` for the main panel.
-         *
-         * @attribute selected
-         * @type string
-         * @default null
          */
         selected: {
           reflectToAttribute: true,
@@ -403,12 +383,12 @@ To change the drawer container when it's in the right side:
       _computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
         var style = '';
 
-        style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';'
+        style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';';
 
         if (rightDrawer) {
           style += 'right:' + (narrow ? '' : drawerWidth) + ';';
         } else {
-          style += 'right:;'
+          style += 'right:;';
         }
 
         return style;
@@ -489,7 +469,7 @@ To change the drawer container when it's in the right side:
         }
       },
 
-      _upHandler: function(e) {
+      _upHandler: function() {
         this._stopEdgePeek();
         // release the panel
         sharedPanel = null;
@@ -515,7 +495,7 @@ To change the drawer container when it's in the right side:
             x <= this.edgeSwipeSensitivity);
       },
 
-      _trackStart: function(e) {
+      _trackStart: function() {
         if (this._swipeAllowed()) {
           sharedPanel = this;
           this.dragging = true;
