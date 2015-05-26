@@ -233,7 +233,6 @@ To change the drawer container when it's in the right side:
          * If true, ignore `responsiveWidth` setting and force the narrow layout.
          */
         forceNarrow: {
-          observer: 'forceNarrowChanged',
           type: Boolean,
           value: false
         },
@@ -328,6 +327,10 @@ To change the drawer container when it's in the right side:
         down: '_downHandler',
         up: '_upHandler'
       },
+
+      observers: [
+        '_forceNarrowChanged(forceNarrow, defaultSelected)'
+      ],
 
       /**
        * Toggles the panel open and closed.
@@ -435,7 +438,7 @@ To change the drawer container when it's in the right side:
         this._responsiveChange(e.detail.value);
       },
 
-      forceNarrowChanged: function() {
+      _forceNarrowChanged: function() {
         this._responsiveChange(this.forceNarrow);
       },
 
