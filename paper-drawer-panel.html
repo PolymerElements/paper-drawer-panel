@@ -109,6 +109,7 @@ To change the drawer container when it's in the right side:
 
   <template>
     <iron-media-query
+        id="mq"
         on-query-matches-changed="_onQueryMatchesChanged"
         query="[[_computeMediaQuery(forceNarrow, responsiveWidth)]]">
     </iron-media-query>
@@ -439,7 +440,8 @@ To change the drawer container when it's in the right side:
       },
 
       _forceNarrowChanged: function() {
-        this._responsiveChange(this.forceNarrow);
+        // set the narrow mode only if we reached the `responsiveWidth`
+        this._responsiveChange(this.forceNarrow || this.$.mq.queryMatches);
       },
 
       _swipeAllowed: function() {
