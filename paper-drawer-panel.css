@@ -58,7 +58,11 @@ iron-selector > #main {
   transition: right ease-in-out 0.3s, padding ease-in-out 0.3s;
 }
 
-#main > [main] {
+#main > ::content > [main] {
+  height: 100%;
+}
+
+#drawer > ::content > [drawer] {
   height: 100%;
 }
 
@@ -82,7 +86,7 @@ iron-selector > #main {
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-.narrow-layout > #drawer > ::content[select="[drawer]"] > * {
+.narrow-layout > #drawer > ::content > [drawer] {
   border: 0;
 }
 

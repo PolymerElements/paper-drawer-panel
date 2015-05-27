@@ -24,22 +24,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../paper-drawer-panel.html">
 
     <style is="custom-style">
-      #paperDrawerPanel {
-        --paper-drawer-panel-left-drawer-container: {
-          border-right-width: 1px;
-          border-right-style: solid;
-          border-right-color: var(--google-grey-300);
-        };
 
-        --paper-drawer-panel-right-drawer-container: {
-          border-left-width: 1px;
-          border-left-style: solid;
-          border-left-color: var(--google-grey-300);
-        };
+      #paperDrawerPanel [main] {
+        background-color: var(--google-grey-100);
+      }
 
-        --paper-drawer-panel-main-container: {
-          background-color: var(--google-grey-100);
-        };
+      #paperDrawerPanel [drawer] {
+        border-right: 1px solid var(--google-grey-300);
+      }
+
+      #paperDrawerPanel[right-drawer] [drawer] {
+        border-left: 1px solid var(--google-grey-300);
       }
 
       paper-button {
