@@ -12,7 +12,6 @@
     "responsive",
     "layout"
   ],
-  "main": "index.html",
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/paper-drawer-panel.git"
