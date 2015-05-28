@@ -210,7 +210,9 @@ To change the drawer container when it's in the right side:
          */
         dragging: {
           type: Boolean,
-          value: false
+          value: false,
+          readOnly: true,
+          notify: true
         },
 
         /**
@@ -266,6 +268,7 @@ To change the drawer container when it's in the right side:
           reflectToAttribute: true,
           type: Boolean,
           value: false,
+          readOnly: true,
           notify: true
         },
 
@@ -274,7 +277,9 @@ To change the drawer container when it's in the right side:
          */
         peeking: {
           type: Boolean,
-          value: false
+          value: false,
+          readOnly: true,
+          notify: true
         },
 
         /**
@@ -425,7 +430,7 @@ To change the drawer container when it's in the right side:
       },
 
       _responsiveChange: function(narrow) {
-        this.narrow = narrow;
+        this._setNarrow(narrow);
 
         if (this.narrow) {
           this.selected = this.defaultSelected;
@@ -456,12 +461,12 @@ To change the drawer container when it's in the right side:
         this.width = this.$.drawer.offsetWidth;
         this._moveDrawer(this._translateXForDeltaX(this.rightDrawer ?
             -this.edgeSwipeSensitivity : this.edgeSwipeSensitivity));
-        this.peeking = true;
+        this._setPeeking(true);
       },
 
       _stopEdgePeek: function() {
         if (this.peeking) {
-          this.peeking = false;
+          this._setPeeking(false);
           this._moveDrawer(null);
         }
       },
@@ -503,10 +508,10 @@ To change the drawer container when it's in the right side:
       _trackStart: function() {
         if (this._swipeAllowed()) {
           sharedPanel = this;
-          this.dragging = true;
+          this._setDragging(true);
 
           if (this._isMainSelected()) {
-            this.dragging = this.peeking || this._isEdgeTouch(event);
+            this._setDragging(this.peeking || this._isEdgeTouch(event));
           }
 
           if (this.dragging) {
@@ -535,7 +540,7 @@ To change the drawer container when it's in the right side:
               // Ignore trackx until we move past the edge peek.
               return;
             }
-            this.peeking = false;
+            this._setPeeking(false);
           }
 
           this._moveDrawer(this._translateXForDeltaX(dx));
@@ -546,7 +551,7 @@ To change the drawer container when it's in the right side:
         if (this.dragging) {
           var xDirection = e.detail.dx > 0;
 
-          this.dragging = false;
+          this._setDragging(false);
           this.transition = true;
           sharedPanel = null;
           this._moveDrawer(null);
