@@ -300,7 +300,8 @@ To change the drawer container when it's in the right side:
         selected: {
           reflectToAttribute: true,
           type: String,
-          value: null
+          value: null,
+          notify: true
         },
 
         /**
@@ -477,6 +478,7 @@ To change the drawer container when it's in the right side:
       _upHandler: function() {
         this._stopEdgePeek();
         // release the panel
+        this.fire('paper-select', {isSelected: this.selected == 'drawer' ? false : true, item: this});
         sharedPanel = null;
       },
 
