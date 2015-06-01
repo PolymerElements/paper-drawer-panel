@@ -300,7 +300,8 @@ To change the drawer container when it's in the right side:
         selected: {
           reflectToAttribute: true,
           type: String,
-          value: null
+          value: null,
+          notify: true
         },
 
         /**
@@ -353,6 +354,7 @@ To change the drawer container when it's in the right side:
        */
       openDrawer: function() {
         this.selected = 'drawer';
+        this.fire('paper-select', {isSelected: this._isMainSelected() ? false : true, item: this});
       },
 
       /**
@@ -362,6 +364,7 @@ To change the drawer container when it's in the right side:
        */
       closeDrawer: function() {
         this.selected = 'main';
+        this.fire('paper-select', {isSelected: this._isMainSelected() ? false : true, item: this});
       },
 
       ready: function() {
