@@ -437,7 +437,6 @@ To change the drawer container when it's in the right side:
           this.selected = this.defaultSelected;
         }
 
-        this.setScrollDirection(this._swipeAllowed() ? 'y' : 'all');
         this.fire('paper-responsive-change', {narrow: this.narrow});
       },
 
@@ -506,7 +505,7 @@ To change the drawer container when it's in the right side:
             x <= this.edgeSwipeSensitivity);
       },
 
-      _trackStart: function() {
+      _trackStart: function(event) {
         if (this._swipeAllowed()) {
           sharedPanel = this;
           this._setDragging(true);
