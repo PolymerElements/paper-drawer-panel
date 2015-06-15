@@ -162,8 +162,9 @@ To change the drawer container when it's in the right side:
       /**
        * Fired when the narrow layout changes.
        *
-       * @event paper-responsive-change {{narrow: boolean}} detail -
-       *     narrow: true if the panel is in narrow layout.
+       * @event paper-responsive-change
+       * @param {Object} detail
+       * @param {boolean} detail.narrow true if the panel is in narrow layout.
        */
 
       /**
@@ -173,9 +174,10 @@ To change the drawer container when it's in the right side:
        * This event is fired both when a panel is selected and deselected.
        * The `isSelected` detail property contains the selection state.
        *
-       * @event paper-select {{isSelected: boolean, item: Object}} detail -
-       *     isSelected: True for selection and false for deselection.
-       *     item: The panel that the event refers to.
+       @event paper-select
+       * @param {Object} detail
+       * @param {boolean} detail.isSelected true for selection and false for deselection
+       * @param {Object} detail.item the panel that the event refers to
        */
 
       properties: {
