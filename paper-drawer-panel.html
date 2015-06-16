@@ -116,7 +116,7 @@ To change the drawer container when it's in the right side:
 
     <iron-selector
         attr-for-selected="id"
-        class$="[[_computeIronSelectorClass(narrow, transition, dragging, rightDrawer)]]"
+        class$="[[_computeIronSelectorClass(narrow, transition, dragging, rightDrawer, peeking)]]"
         activate-event=""
         selected="[[selected]]">
 
@@ -383,13 +383,14 @@ To change the drawer container when it's in the right side:
         this.transition = true;
       },
 
-      _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer) {
+      _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer, peeking) {
         return classNames({
           dragging: dragging,
           'narrow-layout': narrow,
           'right-drawer': rightDrawer,
           'left-drawer': !rightDrawer,
-          transition: transition
+          transition: transition,
+          peeking: peeking
         });
       },
 
