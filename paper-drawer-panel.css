@@ -108,7 +108,6 @@ iron-selector > #main {
 
 .right-drawer.narrow-layout > #drawer:not(.iron-selected) {
   left: auto;
-  /* paper-drawer-panel/issues/59 */
   visibility: hidden;
 
   -webkit-transform: translateX(100%);
