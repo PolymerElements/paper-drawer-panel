@@ -25,9 +25,8 @@ iron-selector > #drawer {
   height: 100%;
   background-color: white;
 
-  will-change: transform;
-  box-sizing: border-box;
   -moz-box-sizing: border-box;
+  box-sizing: border-box;
 
   @apply(--paper-drawer-panel-drawer-container);
 }
@@ -89,6 +88,10 @@ iron-selector > #main {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.narrow-layout > #drawer {
+  will-change: transform;
+}
+
 .narrow-layout > #drawer.iron-selected {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
@@ -141,8 +144,9 @@ iron-selector > #main {
   min-height: 100%;
   left: 0;
   right: 0;
-  box-sizing: border-box;
+
   -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
