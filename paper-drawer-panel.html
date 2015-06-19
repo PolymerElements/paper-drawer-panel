@@ -405,8 +405,6 @@ To change the drawer container when it's in the right side:
 
         if (rightDrawer) {
           style += 'right:' + (narrow ? '' : drawerWidth) + ';';
-        } else {
-          style += 'right:;';
         }
 
         return style;
@@ -483,6 +481,8 @@ To change the drawer container when it's in the right side:
       _downHandler: function(event) {
         if (!this.dragging && this._isMainSelected() && this._isEdgeTouch(event) && !sharedPanel) {
           this._startEdgePeek();
+          // cancel selection
+          event.preventDefault();
           // grab this panel
           sharedPanel = this;
         }
