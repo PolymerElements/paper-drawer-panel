@@ -123,14 +123,12 @@ iron-selector > #main {
 }
 
 .narrow-layout > #main {
-  left: 0 !important;
   padding: 0;
 }
 
 .right-drawer.narrow-layout > #main {
   left: 0;
   right: 0;
-  padding: 0;
 }
 
 .narrow-layout > #main:not(.iron-selected) > #scrim,
