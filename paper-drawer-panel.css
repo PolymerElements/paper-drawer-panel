@@ -86,6 +86,8 @@ iron-selector > #main {
   opacity: 0;
   transition: opacity ease-in-out 0.38s, visibility ease-in-out 0.38s;
   background-color: rgba(0, 0, 0, 0.3);
+
+  @apply(--paper-drawer-panel-scrim);
 }
 
 .narrow-layout > #drawer {

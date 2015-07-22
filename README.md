@@ -38,7 +38,7 @@ Example:
 ```
 
 An element that should toggle the drawer will automatically do so if it's
-given the `paper-drawer-toggle` attribute.  Also this element will automatically
+given the `paper-drawer-toggle` attribute. Also this element will automatically
 be hidden in wide layout.
 
 Example:
@@ -68,4 +68,43 @@ To position the drawer to the right, add `right-drawer` attribute.
   <div drawer> Drawer panel... </div>
   <div main> Main panel... </div>
 </paper-drawer-panel>
+```
+
+### Styling paper-drawer-panel
+
+To change the main container:
+```css
+paper-drawer-panel {
+  --paper-drawer-panel-main-container: {
+    background-color: gray;
+  };
+}
+```
+
+To change the drawer container when it's in the left side:
+```css
+paper-drawer-panel {
+  --paper-drawer-panel-left-drawer-container: {
+    background-color: white;
+  };
+}
+```
+
+To change the drawer container when it's in the right side:
+
+```css
+paper-drawer-panel {
+  --paper-drawer-panel-right-drawer-container: {
+    background-color: white;
+  };
+}
+```
+
+To customize the scrim:
+```css
+paper-drawer-panel {
+  --paper-drawer-panel-scrim: {
+    background-color: red;
+  };
+}
 ```
