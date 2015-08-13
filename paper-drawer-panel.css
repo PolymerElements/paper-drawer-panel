@@ -33,7 +33,6 @@ iron-selector > #drawer {
   height: 100%;
   background-color: white;
   flex:none;
-  overflow:hidden;
 
   -moz-box-sizing: border-box;
   box-sizing: border-box;
