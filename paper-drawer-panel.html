@@ -130,13 +130,15 @@ To customize the scrim:
         activate-event=""
         selected="[[selected]]">
 
-      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
+      <div id="main">
         <content select="[main]"></content>
         <div id="scrim" on-tap="closeDrawer"></div>
       </div>
 
-      <div id="drawer" style$="[[_computeDrawerStyle(drawerWidth)]]">
-        <content select="[drawer]"></content>
+      <div id="drawer">
+          <div id="drawerContent" style$="[[_computeDrawerStyle(drawerWidth)]]">
+              <content select="[drawer]"></content>
+          </div>
       </div>
 
     </iron-selector>
@@ -204,6 +206,15 @@ To customize the scrim:
         defaultSelected: {
           type: String,
           value: 'main'
+        },
+
+        /**
+         * The panel to be selected when 'paper-drawer-panel' changes to wide
+         * layout.
+         */
+        defaultSelectedWide: {
+            type:String,
+            value:'drawer'
         },
 
         /**
@@ -323,7 +334,8 @@ To customize the scrim:
           reflectToAttribute: true,
           notify: true,
           type: String,
-          value: null
+          value: null,
+          observer: '_selectedChanged'
         },
 
         /**
@@ -393,6 +405,13 @@ To customize the scrim:
         this.transition = true;
       },
 
+      _selectedChanged: function() {
+          if (this.selected == 'drawer')
+            this.$.drawer.style.width = this.drawerWidth;
+          else
+            this.$.drawer.style.width = 0;
+      },
+
       _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer, peeking) {
         return classNames({
           dragging: dragging,
@@ -406,18 +425,6 @@ To customize the scrim:
 
       _computeDrawerStyle: function(drawerWidth) {
         return 'width:' + drawerWidth + ';';
-      },
-
-      _computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
-        var style = '';
-
-        style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';';
-
-        if (rightDrawer) {
-          style += 'right:' + (narrow ? '' : drawerWidth) + ';';
-        }
-
-        return style;
       },
 
       _computeMediaQuery: function(forceNarrow, responsiveWidth) {
@@ -451,6 +458,9 @@ To customize the scrim:
 
         if (this.narrow) {
           this.selected = this.defaultSelected;
+        }
+        else {
+          this.selected = this.defaultSelectedWide;
         }
 
         this.setScrollDirection(this._swipeAllowed() ? 'y' : 'all');
@@ -542,12 +552,18 @@ To customize the scrim:
 
       _translateXForDeltaX: function(deltaX) {
         var isMain = this._isMainSelected();
+        var maxWidth = Number(this.drawerWidth.match(/[0-9]*/));
 
-        if (this.rightDrawer) {
-          return Math.max(0, isMain ? this.width + deltaX : deltaX);
-        } else {
-          return Math.min(0, isMain ? deltaX - this.width : deltaX);
+        console.log("translate: "+deltaX);
+
+        if (this.rightDrawer)
+          deltaX = -deltaX;
+
+        if (!isMain) {
+          deltaX += maxWidth;
         }
+
+        return Math.min(deltaX,maxWidth);
       },
 
       _trackX: function(event) {
@@ -573,7 +589,6 @@ To customize the scrim:
           this._setDragging(false);
           this.transition = true;
           sharedPanel = null;
-          this._moveDrawer(null);
 
           if (this.rightDrawer) {
             this[xDirection ? 'closeDrawer' : 'openDrawer']();
@@ -585,15 +600,15 @@ To customize the scrim:
 
       _transformForTranslateX: function(translateX) {
         if (translateX === null) {
-          return '';
+          return 0;
         }
 
-        return this.hasWillChange ? 'translateX(' + translateX + 'px)' :
-            'translate3d(' + translateX + 'px, 0, 0)';
+        return translateX + 'px';
       },
 
       _moveDrawer: function(translateX) {
-        this.transform(this._transformForTranslateX(translateX), this.$.drawer);
+          console.log("move drawer: "+translateX);
+        this.$.drawer.style.width = this._transformForTranslateX(translateX);
       }
 
     });
