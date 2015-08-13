@@ -18,12 +18,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   overflow: hidden;
 }
 
+iron-selector {
+    width:100%;
+    height:100%;
+    display:flex;
+}
+
+iron-selector.left-drawer {
+    flex-direction: row-reverse;
+}
+
 iron-selector > #drawer {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   height: 100%;
   background-color: white;
+  flex:none;
 
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -47,11 +56,24 @@ iron-selector > #drawer {
   @apply(--paper-drawer-panel-right-drawer-container);
 }
 
+iron-selector > #drawer > #drawerContent {
+    position:absolute;
+    height: 100%;
+}
+
+.left-drawer > #drawer > #drawerContent {
+    right:0;
+}
+
+.right-drawer > #drawer > #drawerContent {
+    left:0;
+}
+
 iron-selector > #main {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  width:100%;
+  height:100%;
+  flex:1;
 
   @apply(--paper-drawer-panel-main-container);
 }
@@ -72,7 +94,7 @@ iron-selector > #main {
   height: 100%;
 }
 
-#drawer > ::content > [drawer] {
+#drawerContent > ::content > [drawer] {
   height: 100%;
 }
 
@@ -92,6 +114,7 @@ iron-selector > #main {
 
 .narrow-layout > #drawer {
   will-change: transform;
+  position:absolute;
 }
 
 .narrow-layout > #drawer.iron-selected {
@@ -102,21 +125,8 @@ iron-selector > #main {
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-.narrow-layout > #drawer > ::content > [drawer] {
+.narrow-layout > #drawerContent > ::content > [drawer] {
   border: 0;
-}
-
-.left-drawer.narrow-layout > #drawer:not(.iron-selected) {
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-}
-
-.right-drawer.narrow-layout > #drawer:not(.iron-selected) {
-  left: auto;
-  visibility: hidden;
-
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
 }
 
 .right-drawer.narrow-layout.dragging > #drawer:not(.iron-selected),
