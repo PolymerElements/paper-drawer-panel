@@ -131,7 +131,7 @@ To customize the scrim:
         activate-event=""
         selected="[[selected]]">
 
-      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
+      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]" on-transitionend="_onMainTransitionEnd">
         <content select="[main]"></content>
         <div id="scrim" on-tap="closeDrawer"></div>
       </div>
@@ -396,17 +396,7 @@ To customize the scrim:
         this.transition = true;
       },
 
-      attached: function() {
-        this.listen(this.$.main, 'transitionend', '_transitionEndCallback');
-        this.listen(this.$.main, 'webkitTransitionEnd', '_transitionEndCallback');
-      },
-
-      detached: function() {
-        this.unlisten(this.$.main, 'transitionend', '_transitionEndCallback');
-        this.unlisten(this.$.main, 'webkitTransitionEnd', '_transitionEndCallback');
-      },
-
-      _transitionEndCallback: function (e) {
+      _onMainTransitionEnd: function (e) {
         if (e.currentTarget === this.$.main && e.propertyName === 'left') {
           this.notifyResize();
         }
