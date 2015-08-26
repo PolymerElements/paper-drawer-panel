@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
 `paper-drawer-panel` contains a drawer panel and a main panel.  The drawer
@@ -130,7 +131,7 @@ To customize the scrim:
         activate-event=""
         selected="[[selected]]">
 
-      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
+      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]" on-transitionend="_onMainTransitionEnd">
         <content select="[main]"></content>
         <div id="scrim" on-tap="closeDrawer"></div>
       </div>
@@ -168,6 +169,8 @@ To customize the scrim:
     Polymer({
 
       is: 'paper-drawer-panel',
+
+      behaviors: [Polymer.IronResizableBehavior],
 
       /**
        * Fired when the narrow layout changes.
@@ -391,6 +394,12 @@ To customize the scrim:
         // Avoid transition at the beginning e.g. page loads and enable
         // transitions only after the element is rendered and ready.
         this.transition = true;
+      },
+
+      _onMainTransitionEnd: function (e) {
+        if (e.currentTarget === this.$.main && e.propertyName === 'left') {
+          this.notifyResize();
+        }
       },
 
       _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer, peeking) {
