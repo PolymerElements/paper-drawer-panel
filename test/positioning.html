@@ -59,7 +59,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer.Base.async(function() {
           var drawerStyle = window.getComputedStyle(drawer);
           expect(drawerStyle.left).to.be.equal('0px');
-          expect(drawerStyle.right).to.be.equal('auto');
+          try {
+            expect(drawerStyle.right).to.be.equal('auto');
+          } catch(e) {
+            // Firefox
+            expect(drawerStyle.right).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
+          }
           done();
         });
       });
@@ -73,7 +78,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer.Base.async(function() {
           var drawerStyle = window.getComputedStyle(drawer);
           expect(drawerStyle.right).to.be.equal('0px');
-          expect(drawerStyle.left).to.be.equal('auto');
+          
+          try {
+            expect(drawerStyle.left).to.be.equal('auto');
+          } catch(e) {
+            // Firefox
+            expect(drawerStyle.left).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
+          }
+
           done();
         });
       });
