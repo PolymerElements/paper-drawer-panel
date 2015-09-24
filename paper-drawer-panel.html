@@ -397,7 +397,7 @@ To customize the scrim:
       },
 
       _onMainTransitionEnd: function (e) {
-        if (e.currentTarget === this.$.main && e.propertyName === 'left') {
+        if (e.currentTarget === this.$.main && (e.propertyName === 'left' || e.propertyName === 'right')) {
           this.notifyResize();
         }
       },
