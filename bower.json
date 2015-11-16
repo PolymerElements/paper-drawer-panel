@@ -32,5 +32,6 @@
     "web-component-tester": "*",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "main": "paper-drawer-panel.html"
+  "main": "paper-drawer-panel.html",
+  "ignore": []
 }
