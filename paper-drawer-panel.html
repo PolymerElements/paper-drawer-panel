@@ -147,6 +147,7 @@ Custom property | Description | Default
         left: 0;
         height: 100%;
         background-color: white;
+        z-index: 1;
 
         -moz-box-sizing: border-box;
         box-sizing: border-box;
@@ -175,6 +176,7 @@ Custom property | Description | Default
         top: 0;
         right: 0;
         bottom: 0;
+        z-index: 0;
 
         @apply(--paper-drawer-panel-main-container);
       }
@@ -199,6 +201,15 @@ Custom property | Description | Default
         height: 100%;
       }
 
+      #content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+      }
+
       #scrim {
         position: absolute;
         top: 0;
@@ -209,6 +220,7 @@ Custom property | Description | Default
         opacity: 0;
         transition: opacity ease-in-out 0.38s, visibility ease-in-out 0.38s;
         background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
 
         @apply(--paper-drawer-panel-scrim);
       }
@@ -290,7 +302,9 @@ Custom property | Description | Default
         selected="[[selected]]">
 
       <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]" on-transitionend="_onMainTransitionEnd">
-        <content select="[main]"></content>
+        <div id="content">
+          <content select="[main]"></content>
+        </div>
         <div id="scrim" on-tap="closeDrawer"></div>
       </div>
 
