@@ -28,16 +28,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <test-fixture id="left-drawer">
     <template>
-        <paper-drawer-panel>
-          <div drawer></div>
-          <div main></div>
-        </paper-drawer-panel>
+      <paper-drawer-panel>
+        <div drawer></div>
+        <div main></div>
+      </paper-drawer-panel>
     </template>
   </test-fixture>
 
   <test-fixture id="right-drawer">
     <template>
       <paper-drawer-panel right-drawer>
+        <div drawer></div>
+        <div main></div>
+      </paper-drawer-panel>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="rtl-drawer">
+    <template>
+      <paper-drawer-panel dir="rtl">
         <div drawer></div>
         <div main></div>
       </paper-drawer-panel>
@@ -83,6 +92,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             expect(drawerStyle.left).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
           }
 
+          done();
+        });
+      });
+
+      test('rtl-drawer defaults rightDrawer to true', function(done) {
+        Polymer.Base.async(function() {
+          expect(fixture('rtl-drawer').rightDrawer).to.be.true;
           done();
         });
       });
