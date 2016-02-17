@@ -469,7 +469,9 @@ Custom property | Description | Default
            */
           rightDrawer: {
             type: Boolean,
-            value: false
+            value: function() {
+              return this._isRTL();
+            },
           },
 
           /**
@@ -548,6 +550,10 @@ Custom property | Description | Default
           // Avoid transition at the beginning e.g. page loads and enable
           // transitions only after the element is rendered and ready.
           this._transition = true;
+        },
+
+        _isRTL: function() {
+          return window.getComputedStyle(this).direction == 'rtl';
         },
 
         _onMainTransitionEnd: function (e) {

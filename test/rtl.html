@@ -1,30 +1,40 @@
 <!doctype html>
 <!--
 @license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<html>
+<html dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>paper-drawer-panel tests</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../paper-drawer-panel.html">
 </head>
 <body>
+
+  <test-fixture id="rtl-drawer">
+    <template>
+      <paper-drawer-panel>
+        <div drawer></div>
+        <div main></div>
+      </paper-drawer-panel>
+    </template>
+  </test-fixture>
+
   <script>
-    WCT.loadSuites([
-      'positioning.html',
-      'rtl.html',
-      'small-devices.html',
-      'positioning.html?dom=shadow',
-      'rtl.html?dom=shadow',
-      'small-devices.html?dom=shadow'
-    ]);
+    suite('rtl', function() {
+
+      test('rightDrawer is true by default in RTL', function(done) {
+        expect(fixture('rtl-drawer').$$('paper-drawer-panel')).to.be.true;
+      });
+
+    });
   </script>
 </body>
 </html>
