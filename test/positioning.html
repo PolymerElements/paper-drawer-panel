@@ -96,11 +96,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       });
 
-      test('rtl-drawer defaults rightDrawer to true', function(done) {
-        Polymer.Base.async(function() {
-          expect(fixture('rtl-drawer').rightDrawer).to.be.true;
-          done();
-        });
+      test('rtl-drawer defaults rightDrawer to true', function() {
+        expect(fixture('rtl-drawer').rightDrawer).to.be.true;
       });
 
     });
