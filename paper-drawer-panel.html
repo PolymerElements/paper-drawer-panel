@@ -468,10 +468,7 @@ Custom property | Description | Default
            * If true, position the drawer to the right.
            */
           rightDrawer: {
-            type: Boolean,
-            value: function() {
-              return this._isRTL();
-            },
+            type: Boolean
           },
 
           /**
@@ -514,6 +511,10 @@ Custom property | Description | Default
         observers: [
           '_forceNarrowChanged(forceNarrow, defaultSelected)'
         ],
+
+        attached: function() {
+          this.rightDrawer = this._isRTL();
+        },
 
         /**
          * Toggles the panel open and closed.
