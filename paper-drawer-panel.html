@@ -554,7 +554,7 @@ Custom property | Description | Default
         },
 
         _isRTL: function() {
-          return window.getComputedStyle(this).direction == 'rtl';
+          return window.getComputedStyle(this).direction === 'rtl';
         },
 
         _onMainTransitionEnd: function (e) {
