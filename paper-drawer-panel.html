@@ -513,7 +513,8 @@ Custom property | Description | Default
         ],
 
         attached: function() {
-          this.rightDrawer = this._isRTL();
+          if (this.rightDrawer === undefined)
+            this.rightDrawer = this._isRTL();
         },
 
         /**
