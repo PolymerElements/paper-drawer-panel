@@ -468,8 +468,7 @@ Custom property | Description | Default
            * If true, position the drawer to the right.
            */
           rightDrawer: {
-            type: Boolean,
-            value: false
+            type: Boolean
           },
 
           /**
@@ -513,6 +512,11 @@ Custom property | Description | Default
           '_forceNarrowChanged(forceNarrow, defaultSelected)'
         ],
 
+        attached: function() {
+          if (this.rightDrawer === undefined)
+            this.rightDrawer = this._isRTL();
+        },
+
         /**
          * Toggles the panel open and closed.
          *
@@ -548,6 +552,10 @@ Custom property | Description | Default
           // Avoid transition at the beginning e.g. page loads and enable
           // transitions only after the element is rendered and ready.
           this._transition = true;
+        },
+
+        _isRTL: function() {
+          return window.getComputedStyle(this).direction === 'rtl';
         },
 
         _onMainTransitionEnd: function (e) {
