@@ -18,28 +18,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../web-component-tester/browser.js"></script>
   <link rel="import" href="../paper-drawer-panel.html">
 </head>
-<style>
+<style is="custom-style">
   body {
     margin: 0;
     padding: 0;
   }
-  .notransition,
-  .notransition * {
-    -webkit-transition: none !important;
-    -moz-transition: none !important;
-    -o-transition: none !important;
-    -ms-transition: none !important;
-    transition: none !important;
+  .notransition {
+    --paper-drawer-panel-drawer-container: {
+      transition: none !important;
+    };
   }
 </style>
 <body>
 
   <test-fixture id="left-drawer">
     <template>
-        <paper-drawer-panel class="notransition">
-          <div drawer></div>
-          <div main></div>
-        </paper-drawer-panel>
+      <paper-drawer-panel class="notransition">
+        <div drawer></div>
+        <div main></div>
+      </paper-drawer-panel>
     </template>
   </test-fixture>
 
