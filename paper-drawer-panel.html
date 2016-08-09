@@ -141,6 +141,10 @@ Custom property | Description | Default
         height: 100%;
         overflow: hidden;
       }
+      
+      @media print {
+        :host { position: static }
+      }
 
       iron-selector > #drawer {
         position: absolute;
