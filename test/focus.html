@@ -37,11 +37,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <test-fixture id="drawer">
     <template>
         <paper-drawer-panel force-narrow>
-          <div drawer>
+          <div slot="drawer">
             <input id="innerLink1" tabindex="0" value="inside drawer 1">
             <input id="innerLink2" tabindex="0" value="inside drawer 2">
           </div>
-          <div main>
+          <div slot="main">
             <input id="outerLink" tabindex="0" value="outside drawer">
           </div>
         </paper-drawer-panel>
@@ -51,14 +51,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <test-fixture id="nestedDrawer">
     <template>
       <paper-drawer-panel force-narrow>
-        <div drawer>
+        <div slot="drawer">
           <input id="innerLink1" tabindex="0" value="inside drawer 1">
         </div>
         <paper-drawer-panel id="drawer2" main force-narrow>
-          <div drawer>
+          <div slot="drawer">
             <input id="innerLink2" tabindex="0" value="inside drawer 2">
           </div>
-          <div main>
+          <div slot="main">
             <input id="outerLink" tabindex="0" value="outside drawer">
           </div>
         </paper-drawer-panel>
