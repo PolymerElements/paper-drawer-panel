@@ -33,6 +33,25 @@
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
   },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "iron-media-query": "PolymerElements/iron-media-query#^1.0.0",
+        "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#^1.0.0",
+        "iron-selector": "PolymerElements/iron-selector#^1.0.0",
+        "polymer": "Polymer/polymer#^1.0.0"
+      },
+      "devDependencies": {
+        "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+        "paper-button": "PolymerElements/paper-button#^1.0.0",
+        "paper-styles": "PolymerElements/paper-styles#^1.0.0",
+        "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+        "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+        "web-component-tester": "^4.0.0",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+      }
+    }
+  },
   "main": "paper-drawer-panel.html",
   "ignore": [],
   "resolutions": {

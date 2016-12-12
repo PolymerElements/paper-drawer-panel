@@ -72,7 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         drawer = f.$$('#drawer');
         main = f.$$('#main');
 
-        Polymer.Base.async(function() {
+        requestAnimationFrame(function() {
           var drawerStyle = window.getComputedStyle(drawer);
           expect(drawerStyle.right).to.be.equal('0px');
 
@@ -82,7 +82,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // Firefox
             expect(drawerStyle.left).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
           }
-
           done();
         });
       });

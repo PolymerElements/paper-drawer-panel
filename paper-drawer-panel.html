@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <!--
+**This element has been deprecated in favor of [app-layout](https://github.com/PolymerElements/app-layout).**
+
 Material design: [Navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
 
 `paper-drawer-panel` contains a drawer panel and a main panel. The drawer
@@ -506,6 +508,7 @@ Custom property | Description | Default
           // transitions only after the element is rendered and ready.
           this._transition = true;
           this._keydownHandler = this._keydownHandler.bind(this);
+          console.warn(this.is, 'is deprecated. Please use app-layout instead!');
         },
 
         /**
