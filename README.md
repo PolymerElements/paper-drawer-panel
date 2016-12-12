@@ -19,6 +19,9 @@ _[Demo and API docs](https://elements.polymer-project.org/elements/paper-drawer-
 
 ##&lt;paper-drawer-panel&gt;
 
+**This element has been deprecated in favor of [app-layout](https://github.com/PolymerElements/app-layout).**
+
+
 Material design: [Navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
 
 `paper-drawer-panel` contains a drawer panel and a main panel. The drawer
