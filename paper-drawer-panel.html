@@ -290,7 +290,7 @@ Custom property | Description | Default
 
     <iron-selector
         attr-for-selected="id"
-        class$="[[_computeIronSelectorClass(narrow, _transition, dragging, rightDrawer, peeking)]]"
+        class$="[[_computeIronSelectorClass(narrow, _transition, dragging, _rightDrawer, peeking)]]"
         activate-event=""
         selected="[[selected]]">
 
@@ -474,7 +474,8 @@ Custom property | Description | Default
            */
           rightDrawer: {
             type: Boolean,
-            value: false
+            value: false,
+            observer: "_rightDrawerChanged"
           },
 
           /**
@@ -597,12 +598,12 @@ Custom property | Description | Default
           }
         },
 
-        _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer, peeking) {
+        _computeIronSelectorClass: function(narrow, transition, dragging, _rightDrawer, peeking) {
           return classNames({
             dragging: dragging,
             'narrow-layout': narrow,
-            'right-drawer': rightDrawer,
-            'left-drawer': !rightDrawer,
+            'right-drawer': _rightDrawer,
+            'left-drawer': !_rightDrawer,
             transition: transition,
             peeking: peeking
           });
@@ -834,6 +835,18 @@ Custom property | Description | Default
 
         _isDrawerClosed: function(narrow, selected) {
           return !narrow || selected !== 'drawer';
+        },
+
+        _rightDrawerChanged: function() {
+          var transition = this._transition;
+          this._transition = false;
+          this._rightDrawer = this.rightDrawer;
+          this._forceReflow(this.$.drawer);
+          this._transition = transition;
+        },
+
+        _forceReflow: function(element) {
+          element.offsetHeight;
         }
       });
 
