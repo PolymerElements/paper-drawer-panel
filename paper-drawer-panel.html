@@ -155,7 +155,7 @@ Custom property | Description | Default
         @apply(--paper-drawer-panel-drawer-container);
       }
 
-      .transition > #drawer {
+      .transition-drawer {
         transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s, visibility 0.3s;
         transition: transform ease-in-out 0.3s, width ease-in-out 0.3s, visibility 0.3s;
       }
@@ -290,7 +290,7 @@ Custom property | Description | Default
 
     <iron-selector
         attr-for-selected="id"
-        class$="[[_computeIronSelectorClass(narrow, _transition, dragging, _rightDrawer, peeking)]]"
+        class$="[[_computeIronSelectorClass(narrow, _transition, dragging, rightDrawer, peeking)]]"
         activate-event=""
         selected="[[selected]]">
 
@@ -474,8 +474,7 @@ Custom property | Description | Default
            */
           rightDrawer: {
             type: Boolean,
-            value: false,
-            observer: "_rightDrawerChanged"
+            value: false
           },
 
           /**
@@ -571,7 +570,11 @@ Custom property | Description | Default
          * @method openDrawer
          */
         openDrawer: function() {
-          this.selected = 'drawer';
+          requestAnimationFrame(function() {
+            this.toggleClass("transition-drawer", true, this.$.drawer);
+            this.selected = 'drawer';
+          }.bind(this));
+          
         },
 
         /**
@@ -580,7 +583,10 @@ Custom property | Description | Default
          * @method closeDrawer
          */
         closeDrawer: function() {
-          this.selected = 'main';
+          requestAnimationFrame(function() {
+            this.toggleClass("transition-drawer", true, this.$.drawer);
+            this.selected = 'main';
+          }.bind(this));
         },
 
         _onTransitionEnd: function (e) {
@@ -592,18 +598,23 @@ Custom property | Description | Default
           if (e.propertyName === 'left' || e.propertyName === 'right') {
             this.notifyResize();
           }
-          if (e.propertyName === 'transform' && this.selected === 'drawer') {
-            var focusedChild = this._getAutoFocusedNode();
-            focusedChild && focusedChild.focus();
+          if (e.propertyName === 'transform') {
+            requestAnimationFrame(function() {
+              this.toggleClass("transition-drawer", false, this.$.drawer);
+            }.bind(this));
+            if (this.selected === 'drawer') {
+              var focusedChild = this._getAutoFocusedNode();
+              focusedChild && focusedChild.focus();
+            }
           }
         },
 
-        _computeIronSelectorClass: function(narrow, transition, dragging, _rightDrawer, peeking) {
+        _computeIronSelectorClass: function(narrow, transition, dragging, rightDrawer, peeking) {
           return classNames({
             dragging: dragging,
             'narrow-layout': narrow,
-            'right-drawer': _rightDrawer,
-            'left-drawer': !_rightDrawer,
+            'right-drawer': rightDrawer,
+            'left-drawer': !rightDrawer,
             transition: transition,
             peeking: peeking
           });
@@ -835,18 +846,6 @@ Custom property | Description | Default
 
         _isDrawerClosed: function(narrow, selected) {
           return !narrow || selected !== 'drawer';
-        },
-
-        _rightDrawerChanged: function() {
-          var transition = this._transition;
-          this._transition = false;
-          this._rightDrawer = this.rightDrawer;
-          this._forceReflow(this.$.drawer);
-          this._transition = transition;
-        },
-
-        _forceReflow: function(element) {
-          element.offsetHeight;
         }
       });
 
