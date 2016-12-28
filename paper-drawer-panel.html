@@ -155,7 +155,7 @@ Custom property | Description | Default
         @apply(--paper-drawer-panel-drawer-container);
       }
 
-      .transition-drawer {
+      .transition > .transition-drawer {
         transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s, visibility 0.3s;
         transition: transform ease-in-out 0.3s, width ease-in-out 0.3s, visibility 0.3s;
       }
@@ -571,6 +571,7 @@ Custom property | Description | Default
          */
         openDrawer: function() {
           requestAnimationFrame(function() {
+            this._moveDrawer(null);
             this.toggleClass("transition-drawer", true, this.$.drawer);
             this.selected = 'drawer';
           }.bind(this));
@@ -584,6 +585,7 @@ Custom property | Description | Default
          */
         closeDrawer: function() {
           requestAnimationFrame(function() {
+            this._moveDrawer(null);
             this.toggleClass("transition-drawer", true, this.$.drawer);
             this.selected = 'main';
           }.bind(this));
@@ -689,6 +691,7 @@ Custom property | Description | Default
 
         _startEdgePeek: function() {
           this.width = this.$.drawer.offsetWidth;
+          this.toggleClass("transition-drawer", true, this.$.drawer);
           this._moveDrawer(this._translateXForDeltaX(this.rightDrawer ?
               -this.edgeSwipeSensitivity : this.edgeSwipeSensitivity));
           this._setPeeking(true);
@@ -697,6 +700,7 @@ Custom property | Description | Default
         _stopEdgePeek: function() {
           if (this.peeking) {
             this._setPeeking(false);
+            this.toggleClass("transition-drawer", true, this.$.drawer);
             this._moveDrawer(null);
           }
         },
@@ -786,7 +790,6 @@ Custom property | Description | Default
             this._setDragging(false);
             this._transition = true;
             sharedPanel = null;
-            this._moveDrawer(null);
 
             if (this.rightDrawer) {
               this[xDirection ? 'closeDrawer' : 'openDrawer']();
