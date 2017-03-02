@@ -296,6 +296,7 @@ Custom property | Description | Default
 
       <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
         <content select="[main]"></content>
+        <content select="[footer]"></content>
         <div id="scrim" on-tap="closeDrawer"></div>
       </div>
 
@@ -574,7 +575,7 @@ Custom property | Description | Default
             this.toggleClass("transition-drawer", true, this.$.drawer);
             this.selected = 'drawer';
           }.bind(this));
-          
+
         },
 
         /**
