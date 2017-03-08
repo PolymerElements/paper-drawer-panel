@@ -29,8 +29,8 @@
     "paper-button": "PolymerElements/paper-button#2.0-preview",
     "paper-styles": "PolymerElements/paper-styles#2.0-preview",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#2.0-preview",
-    "test-fixture": "PolymerElements/test-fixture#^2.0.0",
-    "web-component-tester": "v6.0.0-prerelease.5",
+    "test-fixture": "PolymerElements/test-fixture#^3.0.0-rc.1",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0-prerelease.6",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.1"
   },
   "variants": {
@@ -53,10 +53,5 @@
     }
   },
   "main": "paper-drawer-panel.html",
-  "ignore": [],
-  "resolutions": {
-    "polymer": "2.0-preview",
-    "test-fixture": "^2.0.0",
-    "webcomponentsjs": "v1"
-  }
+  "ignore": []
 }
