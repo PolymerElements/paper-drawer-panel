@@ -259,6 +259,7 @@ Custom property | Description | Default
     <iron-selector
         attr-for-selected="id"
         class$="[[_computeIronSelectorClass(narrow, _transition, dragging, rightDrawer, peeking)]]"
+        on-transitionend="_onTransitionEnd"
         activate-event=""
         selected="[[selected]]">
 
@@ -494,8 +495,7 @@ Custom property | Description | Default
           tap: '_onTap',
           track: '_onTrack',
           down: '_downHandler',
-          up: '_upHandler',
-          transitionend: '_onTransitionEnd'
+          up: '_upHandler'
         },
 
         observers: [
@@ -544,7 +544,7 @@ Custom property | Description | Default
 
         _onTransitionEnd: function (e) {
           var target = Polymer.dom(e).localTarget;
-          if (target !== this) {
+          if (target !== this.$.drawer) {
             // ignore events coming from the light dom
             return;
           }
@@ -754,15 +754,13 @@ Custom property | Description | Default
           this.transform(this._transformForTranslateX(translateX), this.$.drawer);
         },
 
-        _getdrawerSlot: function() {
+        _getDrawerSlot: function() {
           return Polymer.dom(this.$.drawerSlot).getDistributedNodes()[0];
         },
 
         _getAutoFocusedNode: function() {
-          var drawerSlot = this._getdrawerSlot();
-
           return this.drawerFocusSelector ?
-              Polymer.dom(drawerSlot).querySelectorAll(this.drawerFocusSelector) || drawerSlot : [];
+              Polymer.dom(this._getDrawerSlot()).querySelector(this.drawerFocusSelector) : null;
         },
 
         _toggleFocusListener: function(selected) {
