@@ -507,7 +507,7 @@ Custom property | Description | Default
           // Avoid transition at the beginning e.g. page loads and enable
           // transitions only after the element is rendered and ready.
           this._transition = true;
-          this._keydownHandler = this._keydownHandler.bind(this);
+          this._boundFocusListener = this._didFocus.bind(this);
           console.warn(this.is, 'is deprecated. Please use app-layout instead!');
         },
 
@@ -777,13 +777,13 @@ Custom property | Description | Default
 
         _toggleFocusListener: function(selected) {
           if (selected === 'drawer') {
-            this.addEventListener('keydown', this._keydownHandler);
+            this.addEventListener('focus', this._boundFocusListener, true);
           } else {
-            this.removeEventListener('keydown', this._keydownHandler);
+            this.removeEventListener('focus', this._boundFocusListener, true);
           }
         },
 
-        _keydownHandler: function(event) {
+        _didFocus: function(event) {
           var autoFocusedNode = this._getAutoFocusedNode();
           if (!autoFocusedNode) {
             return;
@@ -791,7 +791,7 @@ Custom property | Description | Default
 
           var path = Polymer.dom(event).path;
           var focusedChild = path[0];
-          var drawerSlot = this._getdrawerSlot();
+          var drawerSlot = this._getDrawerSlot();
           var focusedChildCameFromDrawer = path.indexOf(drawerSlot) !== -1;
 
           if (!focusedChildCameFromDrawer) {
