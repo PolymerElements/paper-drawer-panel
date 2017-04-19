@@ -17,7 +17,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 _[Demo and API docs](https://elements.polymer-project.org/elements/paper-drawer-panel)_
 
 
-##&lt;paper-drawer-panel&gt;
+## &lt;paper-drawer-panel&gt;
 
 **This element has been deprecated in favor of [app-layout](https://github.com/PolymerElements/app-layout).**
 
@@ -109,4 +109,11 @@ Custom property | Description | Default
 `--paper-drawer-panel-right-drawer-container` | Mixin applied to container when it's in the right side | {}
 `--paper-drawer-panel-scrim` | Mixin applied to scrim | {}
 
+### Changes in 2.0
 
+Distribution is now done with `slot="drawer"` and `slot="main"` attributes (replacing `drawer` and `main` attributes):
+
+    <paper-drawer-panel>
+      <div slot="drawer"> Drawer panel... </div>
+      <div slot="main"> Main panel... </div>
+    </paper-drawer-panel>
