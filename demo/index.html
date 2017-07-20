@@ -61,14 +61,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="drawer" slot="drawer">
         <button tabindex="0">Options</button>
         <button tabindex="0">Settings</button>
-        <button tabindex="0" onclick="toogleDrawer()">Close drawer</button>
+        <button tabindex="0" onclick="toggleDrawer()">Close drawer</button>
       </div>
       <div class="main-content" slot="main">
         <div>
           <paper-button onclick="flipDrawer()" raised>flip drawer</paper-button>
         </div>
         <div>
-          <paper-button onclick="toogleDrawer()" raised>Open drawer</paper-button>
+          <paper-button onclick="toggleDrawer()" raised>Open drawer</paper-button>
         </div>
       </div>
     </paper-drawer-panel>
@@ -86,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           pdp.rightDrawer = !pdp.rightDrawer;
         }
 
-        win.toogleDrawer = function() {
+        win.toggleDrawer = function() {
           pdp.togglePanel();
         };
 
