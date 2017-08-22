@@ -1,0 +1,30 @@
+{
+  "name": "@polymer/paper-drawer-panel",
+  "flat": true,
+  "version": "3.0.0-pre.1",
+  "description": "A responsive drawer panel",
+  "contributors": [
+    "The Polymer Authors"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "drawer",
+    "responsive",
+    "layout"
+  ],
+  "main": "paper-drawer-panel.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-drawer-panel.git"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/PolymerElements/paper-drawer-panel",
+  "dependencies": {
+    "@polymer/iron-media-query": "^3.0.0-pre.1",
+    "@polymer/iron-resizable-behavior": "^3.0.0-pre.1",
+    "@polymer/iron-selector": "^3.0.0-pre.1",
+    "@polymer/polymer": "^3.0.0-pre.1"
+  },
+  "devDependencies": {}
+}

@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-  <link rel="import" href="../paper-drawer-panel.html">
+  <script type="module" src="../paper-drawer-panel.js"></script>
 </head>
 <style>
   body {
@@ -44,49 +44,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
-    suite('positioning', function() {
+  <script type="module">
+import '../paper-drawer-panel.js';
+suite('positioning', function() {
 
-      test('drawer is positioned correctly', function(done) {
-        var f, drawer, main;
-        f = fixture('left-drawer');
-        drawer = f.$$('#drawer');
-        main = f.$$('#main');
+  test('drawer is positioned correctly', function(done) {
+    var f, drawer, main;
+    f = fixture('left-drawer');
+    drawer = f.$$('#drawer');
+    main = f.$$('#main');
 
-        requestAnimationFrame(function() {
-          var drawerStyle = window.getComputedStyle(drawer);
-          expect(drawerStyle.left).to.be.equal('0px');
-          try {
-            expect(drawerStyle.right).to.be.equal('auto');
-          } catch(e) {
-            // Firefox
-            expect(drawerStyle.right).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
-          }
-          done();
-        });
-      });
-
-      test('right-drawer is positioned correctly', function(done) {
-        var f, drawer, main;
-        f = fixture('right-drawer');
-        drawer = f.$$('#drawer');
-        main = f.$$('#main');
-
-        requestAnimationFrame(function() {
-          var drawerStyle = window.getComputedStyle(drawer);
-          expect(drawerStyle.right).to.be.equal('0px');
-
-          try {
-            expect(drawerStyle.left).to.be.equal('auto');
-          } catch(e) {
-            // Firefox
-            expect(drawerStyle.left).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
-          }
-          done();
-        });
-      });
-
+    requestAnimationFrame(function() {
+      var drawerStyle = window.getComputedStyle(drawer);
+      expect(drawerStyle.left).to.be.equal('0px');
+      try {
+        expect(drawerStyle.right).to.be.equal('auto');
+      } catch(e) {
+        // Firefox
+        expect(drawerStyle.right).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
+      }
+      done();
     });
-  </script>
+  });
+
+  test('right-drawer is positioned correctly', function(done) {
+    var f, drawer, main;
+    f = fixture('right-drawer');
+    drawer = f.$$('#drawer');
+    main = f.$$('#main');
+
+    requestAnimationFrame(function() {
+      var drawerStyle = window.getComputedStyle(drawer);
+      expect(drawerStyle.right).to.be.equal('0px');
+
+      try {
+        expect(drawerStyle.left).to.be.equal('auto');
+      } catch(e) {
+        // Firefox
+        expect(drawerStyle.left).to.be.equal(f.offsetWidth - drawer.offsetWidth + 'px');
+      }
+      done();
+    });
+  });
+
+});
+</script>
 </body>
 </html>
