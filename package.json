@@ -1,0 +1,10 @@
+{
+  "name": "@polymer/paper-drawer-panel",
+  "private": true,
+  "description": "A responsive drawer panel",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-drawer-panel.git"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt"
+}
