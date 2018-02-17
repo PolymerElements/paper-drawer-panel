@@ -192,50 +192,50 @@ interface PaperDrawerPanelElement extends Polymer.Element, Polymer.IronResizable
    * Whether the transition is enabled.
    */
   _transition: boolean|null|undefined;
-  ready(): any;
+  ready(): void;
 
   /**
    * Toggles the panel open and closed.
    */
-  togglePanel(): any;
+  togglePanel(): void;
 
   /**
    * Opens the drawer.
    */
-  openDrawer(): any;
+  openDrawer(): void;
 
   /**
    * Closes the drawer.
    */
-  closeDrawer(): any;
-  _onTransitionEnd(e: any): any;
+  closeDrawer(): void;
+  _onTransitionEnd(e: any): void;
   _computeIronSelectorClass(narrow: any, transition: any, dragging: any, rightDrawer: any, peeking: any): any;
   _computeDrawerStyle(drawerWidth: any): any;
   _computeMainStyle(narrow: any, rightDrawer: any, drawerWidth: any): any;
   _computeMediaQuery(forceNarrow: any, responsiveWidth: any): any;
   _computeSwipeOverlayHidden(narrow: any, disableEdgeSwipe: any): any;
-  _onTrack(event: any): any;
-  _responsiveChange(narrow: any): any;
-  _onQueryMatchesChanged(event: any): any;
-  _forceNarrowChanged(): any;
+  _onTrack(event: any): void;
+  _responsiveChange(narrow: any): void;
+  _onQueryMatchesChanged(event: any): void;
+  _forceNarrowChanged(): void;
   _swipeAllowed(): any;
   _isMainSelected(): any;
-  _startEdgePeek(): any;
-  _stopEdgePeek(): any;
-  _downHandler(event: any): any;
-  _upHandler(): any;
-  _onTap(event: any): any;
+  _startEdgePeek(): void;
+  _stopEdgePeek(): void;
+  _downHandler(event: any): void;
+  _upHandler(): void;
+  _onTap(event: any): void;
   _isEdgeTouch(event: any): any;
-  _trackStart(event: any): any;
+  _trackStart(event: any): void;
   _translateXForDeltaX(deltaX: any): any;
-  _trackX(event: any): any;
-  _trackEnd(event: any): any;
+  _trackX(event: any): void;
+  _trackEnd(event: any): void;
   _transformForTranslateX(translateX: any): any;
-  _moveDrawer(translateX: any): any;
+  _moveDrawer(translateX: any): void;
   _getDrawerSlot(): any;
   _getAutoFocusedNode(): any;
-  _toggleFocusListener(selected: any): any;
-  _didFocus(event: any): any;
+  _toggleFocusListener(selected: any): void;
+  _didFocus(event: any): void;
   _isDrawerClosed(narrow: any, selected: any): any;
 }
 
