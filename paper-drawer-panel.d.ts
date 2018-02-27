@@ -210,8 +210,8 @@ interface PaperDrawerPanelElement extends Polymer.Element, Polymer.IronResizable
   closeDrawer(): void;
   _onTransitionEnd(e: any): void;
   _computeIronSelectorClass(narrow: any, transition: any, dragging: any, rightDrawer: any, peeking: any): any;
-  _computeDrawerStyle(drawerWidth: any): any;
-  _computeMainStyle(narrow: any, rightDrawer: any, drawerWidth: any): any;
+  _setDrawerStyle(drawerWidth: any): void;
+  _setMainStyle(narrow: any, rightDrawer: any, drawerWidth: any): void;
   _computeMediaQuery(forceNarrow: any, responsiveWidth: any): any;
   _computeSwipeOverlayHidden(narrow: any, disableEdgeSwipe: any): any;
   _onTrack(event: any): void;
