@@ -54,7 +54,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     suite('on small devices', function() {
-
       test('drawer is hidden by default', function(done) {
         var f, panel, drawer, main;
         f = fixture('left-drawer');
@@ -64,7 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         f.set('forceNarrow', true);
         f._forceNarrowChanged();
 
-       requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
           var drawerBoundingRect = drawer.getBoundingClientRect();
           var mainStyle = window.getComputedStyle(main);
           expect(f._isMainSelected()).to.be.equal(true);
@@ -92,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       });
 
-     test('drawer can be opened', function(done) {
+      test('drawer can be opened', function(done) {
         var f, panel, drawer, main;
         f = fixture('left-drawer');
         drawer = f.$$('#drawer');
@@ -102,7 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         f._forceNarrowChanged();
         f.openDrawer();
 
-       requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
           var drawerBoundingRect = drawer.getBoundingClientRect();
           var mainStyle = window.getComputedStyle(main);
           expect(f.selected).to.be.equal('drawer');
@@ -131,7 +130,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           done();
         });
       });
-
     });
   </script>
 </body>
