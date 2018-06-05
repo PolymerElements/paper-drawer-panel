@@ -1,12 +1,14 @@
 language: node_js
 sudo: 'false'
-before_script: []
+before_script:
+  - npm install -g polymer-cli
+  - polymer install --variants
 env:
   global:
     - secure: >-
-        UpVf/szfZ7hSVvqRusG0cjdrhmJoz+aLuSUXrImnm4rhG+XKh35CGmIPeIatSgLwZxBKRZ8BxjW+tsLqJBUdLismRE4BxAkVu9bIKVba9zHkmL1nNTP3OAzWWHyXDQuFnETQ06Xr5LgqvptRi9pdNCmQczKnE6X8vN6V+sBQwu0=
+        W0u2EpJosSjej3eqaOWOjcibtqoD42mKoZfRE9UlAiBuZJzIut/245LQdYsRODn2H4lFahCFfviEXbhJNWhDWwVmhXEWzWzbQYs9ztSDMkMfMIYcGFBfxMfxK4BSPQgVs6riAY5upUV93rABz4mggymLQfOlOSaumziy9lPiN6Y=
     - secure: >-
-        GDOJjeKcSDpB6+BpTtKLeU9q3NLfLIO/+4ZCfnB1GKKrt0z55fgnaZiJVDY39U6TDyrd/rC9O5S2kATEfCsJDAaQjaymMwID8vePRX2wGLOtKlTqRCMqEI1zpdHUjv5jRnF5aKZU5Cx6iyLs7NmhshDg4VplRTwbvaBHton5jN8=
+        dPF0yCGYWrDHnOtcSmuUv5N91UhrUJ/Y8eqTZTLOokuF4uSWgmR2xK2OQvhbEjq7b1O1iqNWIZ+rpwVlchuH4FNWBibZ9L0bpqZDshRvSFoGpJwdOUehiQJUjhJ1+DjALYArIhe4R4mVOp56Ci+qzoYb8AxJP1p1ePVZgvFFjR4=
 node_js: '9'
 addons:
   firefox: latest
@@ -18,9 +20,6 @@ script:
     if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s 'default';
     fi
 dist: trusty
-install:
-  - npm install -g polymer-cli
-  - polymer install --variants
 cache:
   directories:
     - node_modules
