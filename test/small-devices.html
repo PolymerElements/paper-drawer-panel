@@ -53,6 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </test-fixture>
 
   <script>
+  (function() {
+    // This value should be longer than the longest transition duration of any
+    // drawer animation.
+    const TRANSITION_TIMEOUT = 500;
+
     suite('on small devices', function() {
       test('drawer is hidden by default', function(done) {
         var f, panel, drawer, main;
@@ -63,14 +68,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         f.set('forceNarrow', true);
         f._forceNarrowChanged();
 
-        requestAnimationFrame(function() {
+        setTimeout(function() {
           var drawerBoundingRect = drawer.getBoundingClientRect();
           var mainStyle = window.getComputedStyle(main);
           expect(f._isMainSelected()).to.be.equal(true);
           expect(drawerBoundingRect.left).to.be.equal(-256);
           expect(drawerBoundingRect.width).to.be.equal(256);
           done();
-        });
+        }, TRANSITION_TIMEOUT);
       });
 
       test('right-drawer is hidden by default', function(done) {
@@ -82,13 +87,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         f.set('forceNarrow', true);
         f._forceNarrowChanged();
 
-        requestAnimationFrame(function() {
+        setTimeout(function() {
           var drawerBoundingRect = drawer.getBoundingClientRect();
           var mainStyle = window.getComputedStyle(main);
           expect(drawerBoundingRect.right).to.be.equal(f.offsetWidth + 256);
           expect(drawerBoundingRect.width).to.be.equal(256);
           done();
-        });
+        }, TRANSITION_TIMEOUT);
       });
 
       test('drawer can be opened', function(done) {
@@ -101,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         f._forceNarrowChanged();
         f.openDrawer();
 
-        requestAnimationFrame(function() {
+        setTimeout(function() {
           var drawerBoundingRect = drawer.getBoundingClientRect();
           var mainStyle = window.getComputedStyle(main);
           expect(f.selected).to.be.equal('drawer');
@@ -109,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           expect(drawerBoundingRect.left).to.be.equal(0);
           expect(drawerBoundingRect.width).to.be.equal(256);
           done();
-        });
+        }, TRANSITION_TIMEOUT);
       });
 
       test('right-drawer can be closed', function(done) {
@@ -122,15 +127,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         f._forceNarrowChanged();
         f.openDrawer();
 
-        requestAnimationFrame(function() {
+        setTimeout(function() {
           var drawerBoundingRect = drawer.getBoundingClientRect();
           var mainStyle = window.getComputedStyle(main);
           expect(drawerBoundingRect.right).to.be.equal(f.offsetWidth);
           expect(drawerBoundingRect.width).to.be.equal(256);
           done();
-        });
+        }, TRANSITION_TIMEOUT);
       });
     });
+  })();
   </script>
 </body>
 </html>
