@@ -14,11 +14,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>paper-drawer-panel tests</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../../wct-browser-legacy/browser.js"></script>
 
-  <link rel="import" href="../paper-drawer-panel.html">
-  <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+  <script type="module" src="../paper-drawer-panel.js"></script>
+  <script type="module" src="../../iron-test-helpers/iron-test-helpers.js"></script>
 
 </head>
 <style>
@@ -67,65 +67,69 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </test-fixture>
 
 
-  <script>
-    function ensureDocumentHasFocus() {
-      window.top && window.top.focus();
-    }
+  <script type="module">
+import '../paper-drawer-panel.js';
+import '@polymer/iron-test-helpers/iron-test-helpers.js';
+import { Base } from '@polymer/polymer/polymer-legacy.js';
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+function ensureDocumentHasFocus() {
+  window.top && window.top.focus();
+}
 
-    suite('focus', function() {
-      var drawer, innerLink, outerLink;
+suite('focus', function() {
+  var drawer, innerLink, outerLink;
 
-      setup(function() {
-        drawer = fixture('drawer');
-        innerLink = drawer.querySelector('#innerLink1');
-        outerLink = drawer.querySelector('#outerLink');
-        ensureDocumentHasFocus();
+  setup(function() {
+    drawer = fixture('drawer');
+    innerLink = drawer.querySelector('#innerLink1');
+    outerLink = drawer.querySelector('#outerLink');
+    ensureDocumentHasFocus();
+  });
+
+  test(
+      'should not focus content in drawer if the drawer is closed',
+      function(done) {
+        Base.async(function() {
+          expect(dom(document).activeElement)
+              .to.not.be.equal(innerLink);
+          done();
+        }, 1);
+        MockInteractions.focus(innerLink);
       });
+});
 
-      test(
-          'should not focus content in drawer if the drawer is closed',
-          function(done) {
-            Polymer.Base.async(function() {
-              expect(Polymer.dom(document).activeElement)
-                  .to.not.be.equal(innerLink);
-              done();
-            }, 1);
-            MockInteractions.focus(innerLink);
-          });
+suite('nested drawers', function() {
+  var drawer1, drawer2, innerLink1, innerLink2;
+
+  setup(function() {
+    drawer1 = fixture('nestedDrawer');
+    ensureDocumentHasFocus();
+  });
+
+  test('stack should not overflow', function(done) {
+    flush(function() {
+      var count = 0;
+      var drawer2 = document.querySelector('#drawer2');
+      var innerLink1 = document.querySelector('#innerLink1');
+      var innerLink2 = document.querySelector('#innerLink2');
+      var spy = sinon.spy();
+      drawer1.openDrawer();
+      drawer2.openDrawer();
+
+      document.addEventListener('focus', spy, true);
+
+      MockInteractions.focus(innerLink1);
+      MockInteractions.focus(innerLink2);
+
+      Base.async(function() {
+        if (spy.callCount > 10) {
+          throw new Error('stack overflow');
+        }
+        done();
+      }, 100);
     });
-
-    suite('nested drawers', function() {
-      var drawer1, drawer2, innerLink1, innerLink2;
-
-      setup(function() {
-        drawer1 = fixture('nestedDrawer');
-        ensureDocumentHasFocus();
-      });
-
-      test('stack should not overflow', function(done) {
-        flush(function() {
-          var count = 0;
-          var drawer2 = document.querySelector('#drawer2');
-          var innerLink1 = document.querySelector('#innerLink1');
-          var innerLink2 = document.querySelector('#innerLink2');
-          var spy = sinon.spy();
-          drawer1.openDrawer();
-          drawer2.openDrawer();
-
-          document.addEventListener('focus', spy, true);
-
-          MockInteractions.focus(innerLink1);
-          MockInteractions.focus(innerLink2);
-
-          Polymer.Base.async(function() {
-            if (spy.callCount > 10) {
-              throw new Error('stack overflow');
-            }
-            done();
-          }, 100);
-        });
-      });
-    });
-  </script>
+  });
+});
+</script>
 </body>
 </html>

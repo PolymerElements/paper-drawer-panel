@@ -1,0 +1,32 @@
+{
+  "files": {
+    "paper-drawer-panel.html": {
+      "convertedUrl": "paper-drawer-panel.js",
+      "exports": {}
+    },
+    "index.html": {
+      "convertedUrl": "index.html",
+      "exports": {}
+    },
+    "demo/index.html": {
+      "convertedUrl": "demo/index.html",
+      "exports": {}
+    },
+    "test/focus.html": {
+      "convertedUrl": "test/focus.html",
+      "exports": {}
+    },
+    "test/index.html": {
+      "convertedUrl": "test/index.html",
+      "exports": {}
+    },
+    "test/positioning.html": {
+      "convertedUrl": "test/positioning.html",
+      "exports": {}
+    },
+    "test/small-devices.html": {
+      "convertedUrl": "test/small-devices.html",
+      "exports": {}
+    }
+  }
+}

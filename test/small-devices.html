@@ -14,9 +14,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>paper-drawer-panel tests</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
-  <link rel="import" href="../paper-drawer-panel.html">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script type="module" src="../paper-drawer-panel.js"></script>
 </head>
 <style>
   body {
@@ -52,91 +52,90 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
-    (function() {
-    // This value should be longer than the longest transition duration of any
-    // drawer animation.
-    const TRANSITION_TIMEOUT = 500;
+  <script type="module">
+import '../paper-drawer-panel.js';
+// This value should be longer than the longest transition duration of any
+// drawer animation.
+const TRANSITION_TIMEOUT = 500;
 
-    suite('on small devices', function() {
-      test('drawer is hidden by default', function(done) {
-        var f, panel, drawer, main;
-        f = fixture('left-drawer');
-        drawer = f.$$('#drawer');
-        main = f.$$('#main');
+suite('on small devices', function() {
+  test('drawer is hidden by default', function(done) {
+    var f, panel, drawer, main;
+    f = fixture('left-drawer');
+    drawer = f.$$('#drawer');
+    main = f.$$('#main');
 
-        f.set('forceNarrow', true);
-        f._forceNarrowChanged();
+    f.set('forceNarrow', true);
+    f._forceNarrowChanged();
 
-        setTimeout(function() {
-          var drawerBoundingRect = drawer.getBoundingClientRect();
-          var mainStyle = window.getComputedStyle(main);
-          expect(f._isMainSelected()).to.be.equal(true);
-          expect(drawerBoundingRect.left).to.be.equal(-256);
-          expect(drawerBoundingRect.width).to.be.equal(256);
-          done();
-        }, TRANSITION_TIMEOUT);
-      });
+    setTimeout(function() {
+      var drawerBoundingRect = drawer.getBoundingClientRect();
+      var mainStyle = window.getComputedStyle(main);
+      expect(f._isMainSelected()).to.be.equal(true);
+      expect(drawerBoundingRect.left).to.be.equal(-256);
+      expect(drawerBoundingRect.width).to.be.equal(256);
+      done();
+    }, TRANSITION_TIMEOUT);
+  });
 
-      test('right-drawer is hidden by default', function(done) {
-        var f, panel, drawer, main;
-        f = fixture('right-drawer');
-        drawer = f.$$('#drawer');
-        main = f.$$('#main');
+  test('right-drawer is hidden by default', function(done) {
+    var f, panel, drawer, main;
+    f = fixture('right-drawer');
+    drawer = f.$$('#drawer');
+    main = f.$$('#main');
 
-        f.set('forceNarrow', true);
-        f._forceNarrowChanged();
+    f.set('forceNarrow', true);
+    f._forceNarrowChanged();
 
-        setTimeout(function() {
-          var drawerBoundingRect = drawer.getBoundingClientRect();
-          var mainStyle = window.getComputedStyle(main);
-          expect(drawerBoundingRect.right).to.be.equal(f.offsetWidth + 256);
-          expect(drawerBoundingRect.width).to.be.equal(256);
-          done();
-        }, TRANSITION_TIMEOUT);
-      });
+    setTimeout(function() {
+      var drawerBoundingRect = drawer.getBoundingClientRect();
+      var mainStyle = window.getComputedStyle(main);
+      expect(drawerBoundingRect.right).to.be.equal(f.offsetWidth + 256);
+      expect(drawerBoundingRect.width).to.be.equal(256);
+      done();
+    }, TRANSITION_TIMEOUT);
+  });
 
-      test('drawer can be opened', function(done) {
-        var f, panel, drawer, main;
-        f = fixture('left-drawer');
-        drawer = f.$$('#drawer');
-        main = f.$$('#main');
+  test('drawer can be opened', function(done) {
+    var f, panel, drawer, main;
+    f = fixture('left-drawer');
+    drawer = f.$$('#drawer');
+    main = f.$$('#main');
 
-        f.set('forceNarrow', true);
-        f._forceNarrowChanged();
-        f.openDrawer();
+    f.set('forceNarrow', true);
+    f._forceNarrowChanged();
+    f.openDrawer();
 
-        setTimeout(function() {
-          var drawerBoundingRect = drawer.getBoundingClientRect();
-          var mainStyle = window.getComputedStyle(main);
-          expect(f.selected).to.be.equal('drawer');
-          expect(f._isMainSelected()).to.be.equal(false);
-          expect(drawerBoundingRect.left).to.be.equal(0);
-          expect(drawerBoundingRect.width).to.be.equal(256);
-          done();
-        }, TRANSITION_TIMEOUT);
-      });
+    setTimeout(function() {
+      var drawerBoundingRect = drawer.getBoundingClientRect();
+      var mainStyle = window.getComputedStyle(main);
+      expect(f.selected).to.be.equal('drawer');
+      expect(f._isMainSelected()).to.be.equal(false);
+      expect(drawerBoundingRect.left).to.be.equal(0);
+      expect(drawerBoundingRect.width).to.be.equal(256);
+      done();
+    }, TRANSITION_TIMEOUT);
+  });
 
-      test('right-drawer can be closed', function(done) {
-        var f, panel, drawer, main;
-        f = fixture('right-drawer');
-        drawer = f.$$('#drawer');
-        main = f.$$('#main');
+  test('right-drawer can be closed', function(done) {
+    var f, panel, drawer, main;
+    f = fixture('right-drawer');
+    drawer = f.$$('#drawer');
+    main = f.$$('#main');
 
-        f.set('forceNarrow', true);
-        f._forceNarrowChanged();
-        f.openDrawer();
+    f.set('forceNarrow', true);
+    f._forceNarrowChanged();
+    f.openDrawer();
 
-        setTimeout(function() {
-          var drawerBoundingRect = drawer.getBoundingClientRect();
-          var mainStyle = window.getComputedStyle(main);
-          expect(drawerBoundingRect.right).to.be.equal(f.offsetWidth);
-          expect(drawerBoundingRect.width).to.be.equal(256);
-          done();
-        }, TRANSITION_TIMEOUT);
-      });
-    });
-    })();
-  </script>
+    setTimeout(function() {
+      var drawerBoundingRect = drawer.getBoundingClientRect();
+      var mainStyle = window.getComputedStyle(main);
+      expect(drawerBoundingRect.right).to.be.equal(f.offsetWidth);
+      expect(drawerBoundingRect.width).to.be.equal(256);
+      done();
+    }, TRANSITION_TIMEOUT);
+  });
+});
+</script>
 </body>
 </html>
