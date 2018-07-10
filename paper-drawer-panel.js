@@ -1,16 +1,43 @@
 /**
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+This code may only be used under the BSD style license found at
+http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
+http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
+found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
+part of the polymer project is also subject to an additional IP rights grant
+found at http://polymer.github.io/PATENTS.txt
 */
-/**
-**This element has been deprecated in favor of [app-layout](https://github.com/PolymerElements/app-layout).**
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-media-query/iron-media-query.js';
+import '@polymer/iron-selector/iron-selector.js';
 
-Material design: [Navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
+import {IronResizableBehavior} from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import {Polymer} from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import {dom} from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+
+// this would be the only `paper-drawer-panel` in
+// the whole app that can be in `dragging` state
+var sharedPanel = null;
+
+function classNames(obj) {
+  var classes = [];
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key) && obj[key]) {
+      classes.push(key);
+    }
+  }
+
+  return classes.join(' ');
+}
+
+/**
+**This element has been deprecated in favor of
+[app-layout](https://github.com/PolymerElements/app-layout).**
+
+Material design: [Navigation
+drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
 
 `paper-drawer-panel` contains a drawer panel and a main panel. The drawer
 and the main panel are side-by-side with drawer on the left. When the browser
@@ -92,9 +119,11 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--paper-drawer-panel-scrim-opacity` | Scrim opacity | 1
 `--paper-drawer-panel-drawer-container` | Mixin applied to drawer container | {}
-`--paper-drawer-panel-left-drawer-container` | Mixin applied to container when it's in the left side | {}
+`--paper-drawer-panel-left-drawer-container` | Mixin applied to container when
+it's in the left side | {}
 `--paper-drawer-panel-main-container` | Mixin applied to main container | {}
-`--paper-drawer-panel-right-drawer-container` | Mixin applied to container when it's in the right side | {}
+`--paper-drawer-panel-right-drawer-container` | Mixin applied to container when
+it's in the right side | {}
 `--paper-drawer-panel-scrim` | Mixin applied to scrim | {}
 
 @group Paper elements
@@ -102,35 +131,6 @@ Custom property | Description | Default
 @demo demo/index.html
 @hero hero.svg
 */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-import '@polymer/polymer/polymer-legacy.js';
-
-import '@polymer/iron-media-query/iron-media-query.js';
-import '@polymer/iron-selector/iron-selector.js';
-import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
-import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
-
-// this would be the only `paper-drawer-panel` in
-// the whole app that can be in `dragging` state
-var sharedPanel = null;
-
-function classNames(obj) {
-  var classes = [];
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key) && obj[key]) {
-      classes.push(key);
-    }
-  }
-
-  return classes.join(' ');
-}
-
 Polymer({
   _template: html`
     <style>
@@ -721,8 +721,7 @@ Polymer({
 
   _getAutoFocusedNode: function() {
     return this.drawerFocusSelector ?
-        dom(this._getDrawerSlot())
-            .querySelector(this.drawerFocusSelector) :
+        dom(this._getDrawerSlot()).querySelector(this.drawerFocusSelector) :
         null;
   },
 
