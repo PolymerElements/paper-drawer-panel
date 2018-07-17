@@ -1,28 +1,10 @@
-
-<!---
-
-This README is automatically generated from the comments in these files:
-paper-drawer-panel.html
-
-Edit those files, and our readme bot will duplicate them over here!
-Edit this file, and the bot will squash your changes :)
-
-The bot does some handling of markdown. Please file a bug if it does the wrong
-thing! https://github.com/PolymerLabs/tedium/issues
-
--->
-
+[![Published on NPM](https://img.shields.io/npm/v/@polymer/paper-drawer-panel.svg)](https://www.npmjs.com/package/@polymer/paper-drawer-panel)
 [![Build status](https://travis-ci.org/PolymerElements/paper-drawer-panel.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-drawer-panel)
-
-_[Demo and API docs](https://elements.polymer-project.org/elements/paper-drawer-panel)_
-
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://webcomponents.org/element/@polymer/paper-drawer-panel)
 
 ## &lt;paper-drawer-panel&gt;
 
 **This element has been deprecated in favor of [app-layout](https://github.com/PolymerElements/app-layout).**
-
-
-Material design: [Navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
 
 `paper-drawer-panel` contains a drawer panel and a main panel. The drawer
 and the main panel are side-by-side with drawer on the left. When the browser
@@ -109,11 +91,69 @@ Custom property | Description | Default
 `--paper-drawer-panel-right-drawer-container` | Mixin applied to container when it's in the right side | {}
 `--paper-drawer-panel-scrim` | Mixin applied to scrim | {}
 
-### Changes in 2.0
+See: [Documentation](https://www.webcomponents.org/element/@polymer/paper-drawer-panel),
+  [Demo](https://www.webcomponents.org/element/@polymer/paper-drawer-panel/demo/demo/index.html).
 
-Distribution is now done with `slot="drawer"` and `slot="main"` attributes (replacing `drawer` and `main` attributes):
+## Usage
 
+### Installation
+```
+npm install --save @polymer/paper-drawer-panel
+```
+
+### In an html file
+```html
+<html>
+  <head>
+    <script type="module">
+      import '@polymer/paper-drawer-panel/paper-drawer-panel.js';
+    </script>
+  </head>
+  <body>
     <paper-drawer-panel>
       <div slot="drawer"> Drawer panel... </div>
       <div slot="main"> Main panel... </div>
     </paper-drawer-panel>
+  </body>
+</html>
+```
+### In a Polymer 3 element
+```js
+import {PolymerElement, html} from '@polymer/polymer';
+import '@polymer/paper-drawer-panel/paper-drawer-panel.js';
+
+class SampleElement extends PolymerElement {
+  static get template() {
+    return html`
+      <paper-drawer-panel>
+        <div slot="drawer"> Drawer panel... </div>
+        <div slot="main"> Main panel... </div>
+      </paper-drawer-panel>
+    `;
+  }
+}
+customElements.define('sample-element', SampleElement);
+```
+
+## Contributing
+If you want to send a PR to this element, here are
+the instructions for running the tests and demo locally:
+
+### Installation
+```sh
+git clone https://github.com/PolymerElements/paper-drawer-panel
+cd paper-drawer-panel
+npm install
+npm install -g polymer-cli
+```
+
+### Running the demo locally
+```sh
+polymer serve --npm
+open http://127.0.0.1:<port>/demo/
+```
+
+### Running the tests
+```sh
+polymer test --npm
+```
