@@ -119,11 +119,9 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--paper-drawer-panel-scrim-opacity` | Scrim opacity | 1
 `--paper-drawer-panel-drawer-container` | Mixin applied to drawer container | {}
-`--paper-drawer-panel-left-drawer-container` | Mixin applied to container when
-it's in the left side | {}
+`--paper-drawer-panel-left-drawer-container` | Mixin applied to container when it's in the left side | {}
 `--paper-drawer-panel-main-container` | Mixin applied to main container | {}
-`--paper-drawer-panel-right-drawer-container` | Mixin applied to container when
-it's in the right side | {}
+`--paper-drawer-panel-right-drawer-container` | Mixin applied to container when it's in the right side | {}
 `--paper-drawer-panel-scrim` | Mixin applied to scrim | {}
 
 @group Paper elements
