@@ -273,7 +273,7 @@ Polymer({
     <iron-media-query id="mq" on-query-matches-changed="_onQueryMatchesChanged" query="[[_computeMediaQuery(forceNarrow, responsiveWidth)]]">
     </iron-media-query>
 
-    <iron-selector attr-for-selected="id" class\$="[[_computeIronSelectorClass(narrow, _transition, dragging, rightDrawer, peeking)]]" on-transitionend="_onTransitionEnd" activate-event="" selected="[[selected]]">
+    <iron-selector attr-for-selected="id" class\$="[[_computeIronSelectorClass(narrow, _transition, dragging, rightDrawer, peeking)]]" on-transitionend="_onTransitionEnd" activate-event selected="[[selected]]">
 
       <div id="main">
         <slot name="main"></slot>
