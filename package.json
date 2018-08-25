@@ -16,25 +16,25 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "webmat": "^0.2.0",
-    "@polymer/paper-button": "^3.0.0-pre.20",
-    "@polymer/paper-styles": "^3.0.0-pre.20",
-    "@polymer/iron-test-helpers": "^3.0.0-pre.20",
+    "@polymer/paper-button": "^3.0.0-pre.22",
+    "@polymer/paper-styles": "^3.0.0-pre.22",
+    "@polymer/iron-test-helpers": "^3.0.0-pre.22",
     "wct-browser-legacy": "^1.0.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "@polymer/gen-typescript-declarations": "^1.5.0"
   },
   "scripts": {
     "format": "webmat",
-    "generate-types": "gen-typescript-declarations --deleteExisting --outDir .",
+    "generate-types": "gen-typescript-declarations --deleteExisting --outDir . --verify",
     "prepack": "npm run generate-types"
   },
   "version": "3.0.0-pre.22",
   "main": "paper-drawer-panel.js",
   "author": "The Polymer Authors",
   "dependencies": {
-    "@polymer/iron-media-query": "^3.0.0-pre.20",
-    "@polymer/iron-resizable-behavior": "^3.0.0-pre.20",
-    "@polymer/iron-selector": "^3.0.0-pre.20",
+    "@polymer/iron-media-query": "^3.0.0-pre.22",
+    "@polymer/iron-resizable-behavior": "^3.0.0-pre.22",
+    "@polymer/iron-selector": "^3.0.0-pre.22",
     "@polymer/polymer": "^3.0.0"
   }
 }
