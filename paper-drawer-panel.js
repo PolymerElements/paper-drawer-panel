@@ -343,7 +343,7 @@ Polymer({
      * Width of the drawer panel.
      */
     drawerWidth: {type: String, value: '256px'},
-    
+
     /**
      * The attribute on elements that should toggle the drawer on tap, also
      * elements will automatically be hidden in wide layout.
