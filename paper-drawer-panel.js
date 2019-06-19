@@ -124,12 +124,11 @@ Custom property | Description | Default
 `--paper-drawer-panel-right-drawer-container` | Mixin applied to container when it's in the right side | {}
 `--paper-drawer-panel-scrim` | Mixin applied to scrim | {}
 
-@group Paper elements
 @element paper-drawer-panel
 @demo demo/index.html
-@hero hero.svg
 */
 Polymer({
+  /** @override */
   _template: html`
     <style>
       :host {
@@ -460,6 +459,7 @@ Polymer({
     '_setDrawerStyle(drawerWidth)'
   ],
 
+  /** @override */
   ready: function() {
     // Avoid transition at the beginning e.g. page loads and enable
     // transitions only after the element is rendered and ready.
